@@ -1,0 +1,875 @@
+argument  1 = /home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/H1Li1.nw
+
+
+
+============================== echo of input deck ==============================
+permanent_dir /home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5
+scratch_dir   /home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5
+
+#########################  START NWCHEM INPUT DECK - NWJOB 679646 ########################
+#
+# queue_nwchem_JobId: 61be3fa5c00cc66c0202ddc4
+# queue_nwchem_restart_count: 0
+#
+#nwchem_input  H1Li1.nw
+#nwchem_output H1Li1.out00
+#nwchem_done   H1Li1.done
+#
+#mformula_off
+#
+#transfer_files *.nw *.xyz *.ion_motion *.emotion *.fei *.cif *.hist *.gr *.dat *.meta_gaussians *.cube *.neb_epath *.neb_final_epath
+#bad_files md_xs
+#
+#curdir we31869.emsl.pnl.gov:/media/seagate2/Projects/Duo/COVOs/LiH/3x3_periodic_4covos/R-2.5
+#
+#permdir H1Li2.5x3p-4covos-2.5
+#deletescratch no
+#queuesave no
+#
+#machine aerosol7
+#cputime 22:05:00
+#ncpus 32
+#queue regular
+#
+title "swnc: e theory=pspw4 xc=pbe formula=LiH charge=0 mult=1"
+#machinejob:expert
+
+echo
+
+start pspw_hf_LiH
+
+memory heap 1200 mb stack 1200 mb global 10 mb
+
+charge 0
+
+geometry
+Li    0.00000    0.00000   -1.25000
+H     0.00000    0.00000    1.25000
+end
+
+nwpw
+  ### pseudopotential block begin ###
+  ### pseudopotential block end   ###
+  simulation_cell
+     SC 28.345889835
+     boundary_conditions periodic
+  end
+
+  cutoff 50.0
+  mult 1
+  xc hf
+  lmbfgs
+  tolerances 1.0e-9 1.0e-9
+
+  virtual 4
+end
+set nwpw:cif_filename LiH
+
+#set nwpw:CI_maxit_orb 15
+#set nwpw:CI_maxit_linesearch 15
+set pspw:HFX_screening_radius 14.0
+
+
+set nwpw:2qintegrals .true.
+set nwpw:3x3_virtual .true.
+
+task pspw energy
+
+
+### Generating HOMO and LUMO Gaussian cube files ###
+nwpw
+   dplot
+      orbital 1 homo-restricted.cube
+      density total density.cube
+   end
+end
+task pspw pspw_dplot
+
+nwpw
+   dplot
+      vectors  pspw_hf_LiH.emovecs
+      orbital 1 lumo1-restricted.cube
+      orbital 2 lumo2-restricted.cube
+      orbital 3 lumo3-restricted.cube
+      orbital 4 lumo4-restricted.cube
+   end
+end
+task pspw pspw_dplot
+
+# queue_name: nwchem :queue_name
+# label:nwchem-656.nw NWChem Job #656 curdir=we31869.emsl.pnl.gov:/media/seagate2/Projects/Duo/COVOs/LiH/3x3_periodic_4covos/R-2.5 QWAIT::679645::QWAIT :label
+
+#########################  END   NWCHEM INPUT DECK - NWJOB 679646 ########################
+================================================================================
+
+
+                                         
+                                         
+
+
+             Northwest Computational Chemistry Package (NWChem) 7.0.1
+             --------------------------------------------------------
+
+
+                    Environmental Molecular Sciences Laboratory
+                       Pacific Northwest National Laboratory
+                                Richland, WA 99352
+
+                              Copyright (c) 1994-2020
+                       Pacific Northwest National Laboratory
+                            Battelle Memorial Institute
+
+             NWChem is an open-source computational chemistry package
+                        distributed under the terms of the
+                      Educational Community License (ECL) 2.0
+             A copy of the license is included with this distribution
+                              in the LICENSE.TXT file
+
+                                  ACKNOWLEDGMENT
+                                  --------------
+
+            This software and its documentation were developed at the
+            EMSL at Pacific Northwest National Laboratory, a multiprogram
+            national laboratory, operated for the U.S. Department of Energy
+            by Battelle under Contract Number DE-AC05-76RL01830. Support
+            for this work was provided by the Department of Energy Office
+            of Biological and Environmental Research, Office of Basic
+            Energy Sciences, and the Office of Advanced Scientific Computing.
+
+
+           Job information
+           ---------------
+
+    hostname        = arrow11
+    program         = /home/bylaska/bin/nwchem
+    date            = Sat Dec 18 15:20:04 2021
+
+    compiled        = Fri_Dec_17_17:26:14_2021
+    source          = /home/bylaska/nwchem-releases/nwchem
+    nwchem branch   = 7.0.0
+    nwchem revision = nwchem_on_git-3098-g62825c7
+    ga revision     = 5.8.0
+    use scalapack   = F
+    input           = /home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/H1Li1.nw
+    prefix          = pspw_hf_LiH.
+    data base       = /home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/pspw_hf_LiH.db
+    status          = startup
+    nproc           =       32
+    time left       =     -1s
+
+
+
+           Memory information
+           ------------------
+
+    heap     =  157286398 doubles =   1200.0 Mbytes
+    stack    =  157286395 doubles =   1200.0 Mbytes
+    global   =    1310720 doubles =     10.0 Mbytes (distinct from heap & stack)
+    total    =  315883513 doubles =   2410.0 Mbytes
+    verify   = yes
+    hardfail = no 
+
+
+           Directory information
+           ---------------------
+
+  0 permanent = /home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5
+  0 scratch   = /home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5
+
+
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+              swnc: e theory=pspw4 xc=pbe formula=LiH charge=0 mult=1
+              -------------------------------------------------------
+
+ Scaling coordinates for geometry "geometry" by  1.889725989
+ (inverse scale =  0.529177249)
+
+ ORDER OF PRIMARY AXIS IS BEING SET TO 4
+ C4V symmetry detected
+
+          ------
+          auto-z
+          ------
+     1 autoz failed with cvr_scaling = 1.2 changing to 1.3
+     2 autoz failed with cvr_scaling = 1.3 changing to 1.4
+     3 autoz failed with cvr_scaling = 1.4 changing to 1.5
+  no constraints, skipping    0.0000000000000000     
+  no constraints, skipping    0.0000000000000000     
+
+
+                             Geometry "geometry" -> ""
+                             -------------------------
+
+ Output coordinates in angstroms (scale by  1.889725989 to convert to a.u.)
+
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 Li                   3.0000     0.00000000     0.00000000    -0.62500000
+    2 H                    1.0000     0.00000000     0.00000000     1.87500000
+
+      Atomic Mass 
+      ----------- 
+
+      Li                 7.016000
+      H                  1.007825
+
+
+ Effective nuclear repulsion energy (a.u.)       0.6350126988
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.0000000000     0.0000000000     0.0000000000
+
+      Symmetry information
+      --------------------
+
+ Group name             C4v       
+ Group number             18
+ Group order               8
+ No. of unique centers     2
+
+      Symmetry unique atoms
+
+     1    2
+
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     2                       2.50000
+
+
+            XYZ format geometry
+            -------------------
+     2
+ geometry
+ Li                    0.00000000     0.00000000    -0.62500000
+ H                     0.00000000     0.00000000     1.87500000
+
+          ****************************************************
+          *                                                  *
+          *               NWPW PSPW Calculation              *
+          *                                                  *
+          * [ (Grassmann/Stiefel manifold implementation)  ] *
+          *                                                  *
+          *      [ NorthWest Chemistry implementation ]      *
+          *                                                  *
+          *            version #5.10   06/12/02              *
+          *                                                  *
+          *    This code was developed by Eric J. Bylaska,   *
+          *    and was based upon algorithms and code        *
+          *    developed by the group of Prof. John H. Weare *
+          *                                                  *
+          ****************************************************
+     >>>  JOB STARTED       AT Sat Dec 18 15:20:04 2021  <<<
+          ================ input data ========================
+
+ input psi filename:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/pspw_hf_LiH.movecs
+
+ number of processors used:        32
+ processor grid           :  32 x   1
+ parallel mapping         :2d-hilbert
+ parallel mapping         :  balanced
+ number of threads        :         1
+ parallel io              :       off
+
+ options:
+      boundary conditions  = periodic    (version3)
+      electron spin        = restricted
+      exchange-correlation = Hartree-Fock
+      - HFX relaxed
+      - HFX restricted orbitals :    1
+      - HFX screened coulomb solver
+      - HFX screening radius(pspw:HFX_screening_radius): 0.140E+02
+      - HFX screening power (pspw:HFX_screening_power) : 0.800E+01
+      - HFX screening type (pspw:HFX_screening_type)   : 0
+
+
+ elements involved in the cluster:
+      1: Li  valence charge:  1.0000  lmax=  1
+             comment    : Hamann pseudopotential
+             pseudpotential type            :   0
+             highest angular component      :   1
+             local potential used           :   1
+             number of non-local projections:   1
+             semicore corrections included  :  1.000 (radius)  0.769 (charge)
+             cutoff =   1.869   1.551
+
+      2: H   valence charge:  1.0000  lmax=  1
+             comment    : Parameterized (Chem.Phys.Lett., vol 322, page 447) Hamman psp
+             pseudpotential type            :   0
+             highest angular component      :   1
+             local potential used           :   1
+             number of non-local projections:   1
+             cutoff =   0.800   0.800
+
+
+ total charge:   0.000
+
+ atomic composition:
+     Li  :    1     H   :    1
+
+ number of electrons: spin up=     1 (   1 per task)  down=     1 (   1 per task) (Fourier space)
+ number of orbitals : spin up=     1 (   1 per task)  down=     1 (   1 per task) (Fourier space)
+
+ supercell:
+      cell_name:  cell_default                                      
+      lattice:    a1=<  28.346   0.000   0.000 >
+                  a2=<   0.000  28.346   0.000 >
+                  a3=<   0.000   0.000  28.346 >
+      reciprocal: b1=<   0.222   0.000   0.000 >
+                  b2=<   0.000   0.222   0.000 >
+                  b3=<   0.000   0.000   0.222 >
+      lattice:    a=      28.346 b=     28.346 c=      28.346
+                  alpha=  90.000 beta=  90.000 gamma=  90.000
+                  omega=     22775.6
+
+      density cutoff=100.000  fft=140x140x140(   544264 waves    17008 per task)
+      wavefnc cutoff= 50.000  fft=140x140x140(   192294 waves     6009 per task)
+      Ewald summation: cut radius=    9.02  and  1
+                       Madelung Wigner-Seitz=    1.76011888 (alpha=    2.83729748 rs=17.58438667)
+
+ technical parameters:
+      time step=      5.80     fictitious mass=  400000.0
+      tolerance=0.100E-08 (energy)   0.100E-08 (density)
+      maximum iterations =      1000 (   10 inner    100 outer )
+
+
+
+
+
+== Energy Calculation ==
+
+
+          ============ Grassmann lmbfgs iteration ============
+     >>>  ITERATION STARTED AT Sat Dec 18 15:20:26 2021  <<<
+    iter.           Energy         DeltaE       DeltaRho 
+    ------------------------------------------------------
+      10   -0.7080460488E+00   -0.32763E-10    0.22428E-13
+  *** tolerance ok. iteration terminated
+     >>>  ITERATION ENDED   AT Sat Dec 18 15:20:27 2021  <<<
+
+
+==  Summary Of Results  ==
+
+ number of electrons: spin up=    1.00000  down=    1.00000 (real space)
+
+ total     energy    :  -0.7080460488E+00 (   -0.35402E+00/ion)
+ total orbital energy:  -0.5048846355E+00 (   -0.50488E+00/electron)
+ hartree   energy    :   0.6310395890E+00 (    0.63104E+00/electron)
+ exc-corr  energy    :   0.0000000000E+00 (    0.00000E+00/electron)
+ HF exchange energy  :  -0.4142608487E+00 (   -0.41426E+00/electron)
+ ion-ion   energy    :   0.1361732711E-01 (    0.68087E-02/ion)
+
+ kinetic (planewave) :   0.4955076583E+00 (    0.49551E+00/electron)
+ V_local (planewave) :  -0.1341370306E+01 (   -0.13414E+01/electron)
+ V_nl    (planewave) :  -0.9257946887E-01 (   -0.92579E-01/electron)
+ V_Coul  (planewave) :   0.1262079178E+01 (    0.12621E+01/electron)
+ V_xc.   (planewave) :   0.0000000000E+00 (    0.00000E+00/electron)
+ K.S. HFX energy     :  -0.8285216973E+00 (   -0.82852E+00/electron)
+ Virial Coefficient  :  -0.3468575987E+00
+
+ orbital energies:
+    -0.2524423E+00 (  -6.869eV)
+
+
+== Virtual Orbital Calculation ==
+
+
+ input epsi filename:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/pspw_hf_LiH.emovecs
+
+ COVOs Mimimization
+ ------------------
+CI gradient algorithm =         3
+maxit_sweeps          =         3
+maxit_orb             =       120
+maxit_linesearch      =        15
+maxerror              = 0.100E-08
+
+     orb,it,eci,eold,eci-eold=                    1                    1 -0.73122969089657408      -0.73122969044014907      -4.56425008898975193E-010 F
+     orbital   1 current e=  0.251641E+00 error=0.967E-07 (eci= -0.731229691E+00 error=0.456E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    1                    1 -0.73122969089657408      -0.73122969089657408        0.0000000000000000      F
+     orbital   1 current e=  0.251641E+00 error=0.108E-06 (eci= -0.731229691E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    1                    1 -0.73122969093719603      -0.73122969052675058      -4.10445455401031722E-010 F
+     orbital   1 current e=  0.251641E+00 error=0.126E-06 (eci= -0.731229691E+00 error=0.410E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    2                    1 -0.71406043121907459      -0.71406043088801607      -3.31058513936000054E-010 F
+     orbital   2 current e=  0.515923E+00 error=0.313E-05 (eci= -0.714060431E+00 error=0.331E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    2                    1 -0.71406043121907459      -0.71406043121907459        0.0000000000000000      F
+     orbital   2 current e=  0.515927E+00 error=0.348E-05 (eci= -0.714060431E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    2                    1 -0.71406043134670882      -0.71406043105134698      -2.95361846092134783E-010 F
+     orbital   2 current e=  0.515930E+00 error=0.296E-05 (eci= -0.714060431E+00 error=0.295E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    3                    1 -0.71378299142207335      -0.71378299142207335        0.0000000000000000      F
+     orbital   3 current e=  0.493524E+00 error=0.535E-05 (eci= -0.713782991E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    3                    1 -0.71378299148137714      -0.71378299138875367      -9.26234644538226348E-011 F
+     orbital   3 current e=  0.493530E+00 error=0.507E-05 (eci= -0.713782991E+00 error=0.926E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    3                    1 -0.71378299148137714      -0.71378299148137714        0.0000000000000000      F
+     orbital   3 current e=  0.493535E+00 error=0.503E-05 (eci= -0.713782991E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    4                    1 -0.71378297220593168      -0.71378297220593168        0.0000000000000000      F
+     orbital   4 current e=  0.493527E+00 error=0.525E-05 (eci= -0.713782972E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    4                    1 -0.71378297226247989      -0.71378297217415820      -8.83216833003075408E-011 F
+     orbital   4 current e=  0.493532E+00 error=0.499E-05 (eci= -0.713782972E+00 error=0.883E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    4                    1 -0.71378297226247989      -0.71378297226247989        0.0000000000000000      F
+     orbital   4 current e=  0.493537E+00 error=0.493E-05 (eci= -0.713782972E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+
+ virtual orbital energies:
+     0.4935369E+00 (  13.430eV)
+     0.4935345E+00 (  13.430eV)
+     0.5159298E+00 (  14.039eV)
+     0.2516409E+00 (   6.848eV)
+
+
+ == Generating One-Electron and Two-Electron Integrals ==
+
+ begin_one_electron_integrals
+    1    1        -0.4692210581
+    2    1         0.1171327284
+    3    1         0.0595462744
+    4    1         0.0005806915
+    5    1        -0.0003119953
+    2    2        -0.1912416750
+    3    2         0.0258617713
+    4    2         0.0002533551
+    5    2        -0.0001358260
+    3    3         0.0189036487
+    4    3         0.0002554797
+    5    3        -0.0001372871
+    4    4        -0.0031013475
+    5    4        -0.0000013387
+    5    5        -0.0031007447
+ end_one_electron_integrals
+
+ begin_two_electron_integrals
+    1    1    1    1        0.2167787403
+    1    1    2    1       -0.1171309701
+    1    1    3    1       -0.0595466343
+    1    1    4    1       -0.0005807007
+    1    1    5    1        0.0003119986
+    1    1    2    2        0.1785931597
+    1    1    3    2        0.0009831166
+    1    1    4    2        0.0000136968
+    1    1    5    2       -0.0000068249
+    1    1    3    3        0.1879329749
+    1    1    4    3        0.0000360798
+    1    1    5    3       -0.0000193928
+    1    1    4    4        0.1858595278
+    1    1    5    4       -0.0000001919
+    1    1    5    5        0.1858603975
+    2    1    2    1        0.1107734041
+    2    1    3    1        0.0054614156
+    2    1    4    1        0.0000544213
+    2    1    5    1       -0.0000290668
+    2    1    2    2       -0.0996664231
+    2    1    3    2       -0.0152800603
+    2    1    4    2       -0.0001482554
+    2    1    5    2        0.0000793041
+    2    1    3    3       -0.0929128194
+    2    1    4    3       -0.0000914282
+    2    1    5    3        0.0000490375
+    2    1    4    4       -0.0853178409
+    2    1    5    4        0.0000004814
+    2    1    5    5       -0.0853181305
+    3    1    3    1        0.0760619119
+    3    1    4    1        0.0000380330
+    3    1    5    1       -0.0000204399
+    3    1    2    2       -0.0540274171
+    3    1    3    2       -0.0149675077
+    3    1    4    2       -0.0000625200
+    3    1    5    2        0.0000335183
+    3    1    3    3       -0.0536689171
+    3    1    4    3       -0.0000334570
+    3    1    5    3        0.0000180876
+    3    1    4    4       -0.0468951587
+    3    1    5    4       -0.0000000050
+    3    1    5    5       -0.0468951905
+    4    1    4    1        0.0726022715
+    4    1    5    1       -0.0000001995
+    4    1    2    2       -0.0005261172
+    4    1    3    2       -0.0000626157
+    4    1    4    2       -0.0093635195
+    4    1    5    2        0.0000002142
+    4    1    3    3       -0.0004562712
+    4    1    4    3       -0.0033606350
+    4    1    5    3       -0.0000000771
+    4    1    4    4       -0.0005234946
+    4    1    5    4        0.0000179219
+    4    1    5    5       -0.0004572377
+    5    1    5    1        0.0726022793
+    5    1    2    2        0.0002825877
+    5    1    3    2        0.0000336093
+    5    1    4    2        0.0000004441
+    5    1    5    2       -0.0093635504
+    5    1    3    3        0.0002452187
+    5    1    4    3        0.0000000680
+    5    1    5    3       -0.0033606181
+    5    1    4    4        0.0002457511
+    5    1    5    4       -0.0000331534
+    5    1    5    5        0.0002814795
+    2    2    2    2        0.1685519479
+    2    2    3    2       -0.0010372599
+    2    2    4    2       -0.0000056876
+    2    2    5    2        0.0000035111
+    2    2    3    3        0.1415845965
+    2    2    4    3        0.0000211499
+    2    2    5    3       -0.0000113882
+    2    2    4    4        0.1407662048
+    2    2    5    4       -0.0000001129
+    2    2    5    5        0.1407668339
+    3    2    3    2        0.0227801217
+    3    2    4    2        0.0000054609
+    3    2    5    2       -0.0000029079
+    3    2    3    3       -0.0061293111
+    3    2    4    3       -0.0000033181
+    3    2    5    3        0.0000018279
+    3    2    4    4       -0.0036296328
+    3    2    5    4       -0.0000001179
+    3    2    5    5       -0.0036297103
+    4    2    4    2        0.0224388747
+    4    2    5    2       -0.0000000287
+    4    2    3    3       -0.0000110879
+    4    2    4    3       -0.0025327787
+    4    2    5    3       -0.0000001224
+    4    2    4    4       -0.0000760582
+    4    2    5    4        0.0000132999
+    4    2    5    5       -0.0000322262
+    5    2    5    2        0.0224387982
+    5    2    3    3        0.0000064114
+    5    2    4    3       -0.0000001117
+    5    2    5    3       -0.0025329149
+    5    2    4    4        0.0000177452
+    5    2    5    4       -0.0000246865
+    5    2    5    5        0.0000413588
+    3    3    3    3        0.1965726587
+    3    3    4    3        0.0000139764
+    3    3    5    3       -0.0000075202
+    3    3    4    4        0.1586144825
+    3    3    5    4       -0.0000001248
+    3    3    5    5        0.1586152933
+    4    3    4    3        0.0208147105
+    4    3    5    3       -0.0000000367
+    4    3    4    4        0.0000024838
+    4    3    5    4        0.0000025548
+    4    3    5    5        0.0000120608
+    5    3    5    3        0.0208147658
+    5    3    4    4       -0.0000064256
+    5    3    5    4       -0.0000047581
+    5    3    5    5       -0.0000014055
+    4    4    4    4        0.1976001014
+    4    4    5    4       -0.0000047109
+    4    4    5    5        0.1585964231
+    5    4    5    4        0.0214101907
+    5    4    5    5        0.0000046767
+    5    5    5    5        0.1976021822
+ end_two_electron_integrals
+
+
+ output epsi filename:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/pspw_hf_LiH.emovecs
+
+ Total PSPW energy     :  -0.7080460488E+00
+
+
+=== Spin Contamination ===
+
+ <Sexact^2> =    0.0000000000000000     
+ <S^2>      =    0.0000000000000000     
+
+
+
+== Center of Charge ==
+
+spin up     (   -0.0000,    0.0000,    2.9161 )
+spin down   (   -0.0000,    0.0000,    2.9161 )
+     total  (   -0.0000,    0.0000,    2.9161 )
+ionic       (    0.0000,    0.0000,    1.1811 )
+
+
+== Molecular Dipole wrt Center of Mass ==
+
+mu   =  (    0.0000,   -0.0000,   -3.4700 ) au
+|mu| =     3.4700 au,       8.8193 Debye
+
+ output psi filename:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/pspw_hf_LiH.movecs
+
+ Writing Crystallographic Information File:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/LiH.cif
+   - cell not shifted (nwpw:cif_shift_cell .false.)
+
+
+== Timing ==
+
+cputime in seconds
+  prologue    :   0.223262E+02
+  main loop   :   0.140983E+03
+  epilogue    :   0.232141E+00
+  total       :   0.163541E+03
+  cputime/step:   0.281966E+02       (       5 evalulations,       1 linesearches)
+
+
+Time spent doing                        total          step       percent
+  total time                 :   0.163574E+03  0.327148E+02       100.0 %
+  i/o time                   :   0.183194E+01  0.366387E+00         1.1 %
+  FFTs                       :   0.854247E+02  0.170849E+02        52.2 %
+  dot products               :   0.491455E+01  0.982911E+00         3.0 %
+  geodesic                   :   0.130198E-01  0.260396E-02         0.0 %
+  ffm_dgemm                  :   0.392533E-02  0.785065E-03         0.0 %
+  fmf_dgemm                  :   0.103016E-01  0.206032E-02         0.0 %
+  mmm_dgemm                  :   0.591278E-04  0.118256E-04         0.0 %
+  m_diagonalize              :   0.970364E-04  0.194073E-04         0.0 %
+  local pseudopotentials     :   0.445664E+00  0.891327E-01         0.3 %
+  non-local pseudopotentials :   0.172952E+01  0.345903E+00         1.1 %
+  hartree potentials         :   0.197540E+01  0.395080E+00         1.2 %
+  ion-ion interaction        :   0.769918E+00  0.153984E+00         0.5 %
+  structure factors          :   0.371449E+00  0.742897E-01         0.2 %
+  phase factors              :   0.181198E-04  0.362396E-05         0.0 %
+  masking and packing        :   0.151025E+02  0.302050E+01         9.2 %
+  queue fft                  :   0.187043E+02  0.374087E+01        11.4 %
+  queue fft (serial)         :   0.600952E+01  0.120190E+01         3.7 %
+  queue fft (message passing):   0.124984E+02  0.249969E+01         7.6 %
+  HFX potential              :   0.182660E+02  0.365320E+01        11.2 %
+  non-local psp FFM          :   0.130946E+01  0.261892E+00         0.8 %
+  non-local psp FMF          :   0.320857E+00  0.641715E-01         0.2 %
+  non-local psp FFM A        :   0.509078E-01  0.101816E-01         0.0 %
+  non-local psp FFM B        :   0.386994E-01  0.773988E-02         0.0 %
+
+== HFX Counters ==
+  HFX Evalulations         =   371
+  Lin ACE HFX Evalulations =     0
+
+
+     >>>  JOB COMPLETED     AT Sat Dec 18 15:22:47 2021  <<<
+
+ Task  times  cpu:      162.5s     wall:      163.7s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ >>>> PSPW Parallel Module - pspw_dplot <<<<
+          ****************************************************
+          *                                                  *
+          *                   pspw DPLOT                     *
+          *                                                  *
+          *    [ Generates density and orbital grids  ]      *
+          *                                                  *
+          *     [ NorthWest Chemistry implementation ]       *
+          *                                                  *
+          *            version #1.00   08/22/01              *
+          *                                                  *
+          ****************************************************
+
+     >>>  JOB STARTED       AT Sat Dec 18 15:22:47 2021  <<<
+          ============ PSPW DPLOT input data =================
+
+ input psi filename:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/pspw_hf_LiH.movecs
+
+ number of processors used: 32
+ parallel mapping         :2d hilbert
+ parallel mapping         :  balanced
+
+ options:
+      boundary conditions   = periodic    (version3)
+
+ number of electrons: spin up=  1  spin down=  1 ( Fourier space)
+
+ ncell              =  0 0 0
+
+ position tolerance = 0.100000E-02
+
+           origin=<   0.000   0.000   0.000 >
+
+ supercell:
+      lattice: a1=<  28.346   0.000   0.000 >
+               a2=<   0.000  28.346   0.000 >
+               a3=<   0.000   0.000  28.346 >
+               b1=<   0.222   0.000   0.000 >
+               b2=<   0.000   0.222   0.000 >
+               b3=<   0.000   0.000   0.222 >
+      volume :    22775.6
+      density cutoff=100.000  fft=140x140x140(   544264 waves    17008 per task)
+      wavefnc cutoff= 50.000  fft=140x140x140(   192294 waves     6009 per task)
+
+
+    writing orbital                     1  to filename: homo-restricted.cube
+    writing total density to filename: density.cube
+
+ Writing Crystallographic Information File:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/LiH.cif
+   - cell not shifted (nwpw:cif_shift_cell .false.)
+
+ -----------------
+ cputime in seconds
+ total       :    41.773710012435913     
+
+     >>>  JOB COMPLETED     AT Sat Dec 18 15:23:29 2021  <<<
+
+ Task  times  cpu:       41.5s     wall:       41.8s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ >>>> PSPW Parallel Module - pspw_dplot <<<<
+          ****************************************************
+          *                                                  *
+          *                   pspw DPLOT                     *
+          *                                                  *
+          *    [ Generates density and orbital grids  ]      *
+          *                                                  *
+          *     [ NorthWest Chemistry implementation ]       *
+          *                                                  *
+          *            version #1.00   08/22/01              *
+          *                                                  *
+          ****************************************************
+
+     >>>  JOB STARTED       AT Sat Dec 18 15:23:29 2021  <<<
+          ============ PSPW DPLOT input data =================
+
+ input psi filename:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/pspw_hf_LiH.emovecs
+
+ number of processors used: 32
+ parallel mapping         :2d hilbert
+ parallel mapping         :  balanced
+
+ options:
+      boundary conditions   = periodic    (version3)
+
+ number of electrons: spin up=  4  spin down=  4 ( Fourier space)
+
+ ncell              =  0 0 0
+
+ position tolerance = 0.100000E-02
+
+           origin=<   0.000   0.000   0.000 >
+
+ supercell:
+      lattice: a1=<  28.346   0.000   0.000 >
+               a2=<   0.000  28.346   0.000 >
+               a3=<   0.000   0.000  28.346 >
+               b1=<   0.222   0.000   0.000 >
+               b2=<   0.000   0.222   0.000 >
+               b3=<   0.000   0.000   0.222 >
+      volume :    22775.6
+      density cutoff=100.000  fft=140x140x140(   544264 waves    17008 per task)
+      wavefnc cutoff= 50.000  fft=140x140x140(   192294 waves     6009 per task)
+
+
+    writing orbital                     1  to filename: lumo1-restricted.cube
+    writing orbital                     2  to filename: lumo2-restricted.cube
+    writing orbital                     3  to filename: lumo3-restricted.cube
+    writing orbital                     4  to filename: lumo4-restricted.cube
+
+ Writing Crystallographic Information File:/home/bylaska/Projects/Work/SNWC/H1Li2.5x3p-4covos-2.5/LiH.cif
+   - cell not shifted (nwpw:cif_shift_cell .false.)
+
+ -----------------
+ cputime in seconds
+ total       :    64.244148969650269     
+
+     >>>  JOB COMPLETED     AT Sat Dec 18 15:24:33 2021  <<<
+
+ Task  times  cpu:       63.7s     wall:       64.2s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  read&inc
+calls:    0        0        0        0        0        0        0        0     
+number of processes/call 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+bytes total:             0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+bytes remote:            0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 0 bytes
+
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+	allocation statistics:
+					      heap	     stack
+					      ----	     -----
+	current number of blocks	         0	         0
+	maximum number of blocks	       290	        34
+	current total bytes		         0	         0
+	maximum total bytes		  55703520	  16101880
+	maximum total K-bytes		     55704	     16102
+	maximum total M-bytes		        56	        17
+
+
+                                     CITATION
+                                     --------
+                Please cite the following reference when publishing
+                           results obtained with NWChem:
+
+          E. Apra, E. J. Bylaska, W. A. de Jong, N. Govind, K. Kowalski,
+       T. P. Straatsma, M. Valiev, H. J. J. van Dam, Y. Alexeev, J. Anchell,
+       V. Anisimov, F. W. Aquino, R. Atta-Fynn, J. Autschbach, N. P. Bauman,
+     J. C. Becca, D. E. Bernholdt, K. Bhaskaran-Nair, S. Bogatko, P. Borowski,
+         J. Boschen, J. Brabec, A. Bruner, E. Cauet, Y. Chen, G. N. Chuev,
+      C. J. Cramer, J. Daily, M. J. O. Deegan, T. H. Dunning Jr., M. Dupuis,
+   K. G. Dyall, G. I. Fann, S. A. Fischer, A. Fonari, H. Fruchtl, L. Gagliardi,
+      J. Garza, N. Gawande, S. Ghosh, K. Glaesemann, A. W. Gotz, J. Hammond,
+       V. Helms, E. D. Hermes, K. Hirao, S. Hirata, M. Jacquelin, L. Jensen,
+   B. G. Johnson, H. Jonsson, R. A. Kendall, M. Klemm, R. Kobayashi, V. Konkov,
+      S. Krishnamoorthy, M. Krishnan, Z. Lin, R. D. Lins, R. J. Littlefield,
+      A. J. Logsdail, K. Lopata, W. Ma, A. V. Marenich, J. Martin del Campo,
+   D. Mejia-Rodriguez, J. E. Moore, J. M. Mullin, T. Nakajima, D. R. Nascimento,
+    J. A. Nichols, P. J. Nichols, J. Nieplocha, A. Otero-de-la-Roza, B. Palmer,
+    A. Panyala, T. Pirojsirikul, B. Peng, R. Peverati, J. Pittner, L. Pollack,
+   R. M. Richard, P. Sadayappan, G. C. Schatz, W. A. Shelton, D. W. Silverstein,
+   D. M. A. Smith, T. A. Soares, D. Song, M. Swart, H. L. Taylor, G. S. Thomas,
+            V. Tipparaju, D. G. Truhlar, K. Tsemekhman, T. Van Voorhis,
+      A. Vazquez-Mayagoitia, P. Verma, O. Villa, A. Vishnu, K. D. Vogiatzis,
+        D. Wang, J. H. Weare, M. J. Williamson, T. L. Windus, K. Wolinski,
+        A. T. Wong, Q. Wu, C. Yang, Q. Yu, M. Zacharias, Z. Zhang, Y. Zhao,
+                                and R. J. Harrison
+                        "NWChem: Past, present, and future
+                         J. Chem. Phys. 152, 184102 (2020)
+                               doi:10.1063/5.0004997
+
+                                      AUTHORS
+                                      -------
+     E. Apra, E. J. Bylaska, N. Govind, K. Kowalski, M. Valiev, W. A. de Jong,
+      T. P. Straatsma, H. J. J. van Dam, D. Wang, T. L. Windus, N. P. Bauman,
+       A. Panyala, J. Hammond, J. Autschbach, K. Bhaskaran-Nair, J. Brabec,
+    K. Lopata, S. A. Fischer, S. Krishnamoorthy, M. Jacquelin, W. Ma, M. Klemm,
+       O. Villa, Y. Chen, V. Anisimov, F. Aquino, S. Hirata, M. T. Hackler,
+           Eric Hermes, L. Jensen, J. E. Moore, J. C. Becca, V. Konjkov,
+            D. Mejia-Rodriguez, T. Risthaus, M. Malagoli, A. Marenich,
+   A. Otero-de-la-Roza, J. Mullin, P. Nichols, R. Peverati, J. Pittner, Y. Zhao,
+        P.-D. Fan, A. Fonari, M. J. Williamson, R. J. Harrison, J. R. Rehr,
+      M. Dupuis, D. Silverstein, D. M. A. Smith, J. Nieplocha, V. Tipparaju,
+      M. Krishnan, B. E. Van Kuiken, A. Vazquez-Mayagoitia, M. Swart, Q. Wu,
+   T. Van Voorhis, A. A. Auer, M. Nooijen, L. D. Crosby, E. Brown, G. Cisneros,
+     G. I. Fann, H. Fruchtl, J. Garza, K. Hirao, R. A. Kendall, J. A. Nichols,
+       K. Tsemekhman, K. Wolinski, J. Anchell, D. E. Bernholdt, P. Borowski,
+       T. Clark, D. Clerc, H. Dachsel, M. J. O. Deegan, K. Dyall, D. Elwood,
+      E. Glendening, M. Gutowski, A. C. Hess, J. Jaffe, B. G. Johnson, J. Ju,
+        R. Kobayashi, R. Kutteh, Z. Lin, R. Littlefield, X. Long, B. Meng,
+      T. Nakajima, S. Niu, L. Pollack, M. Rosing, K. Glaesemann, G. Sandrone,
+      M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe, A. T. Wong, Z. Zhang.
+
+ Total times  cpu:      267.8s     wall:      269.9s
+
+
+# MYMACHINENAME: Eric Bylaska - arrow11.emsl.pnl.gov :MYMACHINENAME

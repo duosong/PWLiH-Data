@@ -1,0 +1,1864 @@
+argument  1 = /home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/H1Li1.nw
+
+
+
+============================== echo of input deck ==============================
+permanent_dir /home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4
+scratch_dir   /home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4
+
+#########################  START NWCHEM INPUT DECK - NWJOB 679703 ########################
+#
+# queue_nwchem_JobId: 61bef337f882dcaf896bbbe2
+# queue_nwchem_restart_count: 0
+#
+#nwchem_input  H1Li1.nw
+#nwchem_output H1Li1.out00
+#nwchem_done   H1Li1.done
+#
+#mformula_off
+#
+#transfer_files *.nw *.xyz *.ion_motion *.emotion *.fei *.cif *.hist *.gr *.dat *.meta_gaussians *.cube *.neb_epath *.neb_final_epath
+#bad_files md_xs
+#
+#curdir we31869.emsl.pnl.gov:/media/seagate2/Projects/Duo/COVOs/LiH/3x3_periodic_8covos/R-1.4
+#
+#permdir H1Li1.4x3p-8covos-1.4
+#deletescratch no
+#queuesave no
+#
+#machine aerosol7
+#cputime 22:05:00
+#ncpus 32
+#queue regular
+#
+title "swnc: e theory=pspw4 xc=pbe formula=LiH charge=0 mult=1"
+#machinejob:expert
+
+echo
+
+start pspw_hf_LiH
+
+memory heap 1200 mb stack 1200 mb global 10 mb
+
+charge 0
+
+geometry
+Li    0.00000    0.00000   -0.70000
+H     0.00000    0.00000    0.70000
+end
+
+nwpw
+  ### pseudopotential block begin ###
+  ### pseudopotential block end   ###
+  simulation_cell
+     SC 28.345889835
+     boundary_conditions periodic
+  end
+
+  cutoff 50.0
+  mult 1
+  xc hf
+  lmbfgs
+  tolerances 1.0e-9 1.0e-9
+
+  virtual 8
+end
+set nwpw:cif_filename LiH
+
+#set nwpw:CI_maxit_orb 15
+#set nwpw:CI_maxit_linesearch 15
+set pspw:HFX_screening_radius 14.0
+
+
+set nwpw:2qintegrals .true.
+set nwpw:3x3_virtual .true.
+
+task pspw energy
+
+### Generating HOMO and LUMO Gaussian cube files ###
+nwpw
+   dplot
+      orbital 1 homo-restricted.cube
+      density total density.cube
+   end
+end
+task pspw pspw_dplot
+
+nwpw
+   dplot
+      vectors  pspw_hf_LiH.emovecs
+      orbital 1 lumo1-restricted.cube
+      orbital 2 lumo2-restricted.cube
+      orbital 3 lumo3-restricted.cube
+      orbital 4 lumo4-restricted.cube
+      orbital 5 lumo5-restricted.cube
+      orbital 6 lumo6-restricted.cube
+      orbital 7 lumo7-restricted.cube
+      orbital 8 lumo8-restricted.cube
+   end
+end
+task pspw pspw_dplot
+
+# queue_name: nwchem :queue_name
+# label:nwchem-291.nw NWChem Job #291 curdir=we31869.emsl.pnl.gov:/media/seagate2/Projects/Duo/COVOs/LiH/3x3_periodic_8covos/R-1.4 QWAIT::679702::QWAIT :label
+
+#########################  END   NWCHEM INPUT DECK - NWJOB 679703 ########################
+================================================================================
+
+
+                                         
+                                         
+
+
+             Northwest Computational Chemistry Package (NWChem) 7.0.1
+             --------------------------------------------------------
+
+
+                    Environmental Molecular Sciences Laboratory
+                       Pacific Northwest National Laboratory
+                                Richland, WA 99352
+
+                              Copyright (c) 1994-2020
+                       Pacific Northwest National Laboratory
+                            Battelle Memorial Institute
+
+             NWChem is an open-source computational chemistry package
+                        distributed under the terms of the
+                      Educational Community License (ECL) 2.0
+             A copy of the license is included with this distribution
+                              in the LICENSE.TXT file
+
+                                  ACKNOWLEDGMENT
+                                  --------------
+
+            This software and its documentation were developed at the
+            EMSL at Pacific Northwest National Laboratory, a multiprogram
+            national laboratory, operated for the U.S. Department of Energy
+            by Battelle under Contract Number DE-AC05-76RL01830. Support
+            for this work was provided by the Department of Energy Office
+            of Biological and Environmental Research, Office of Basic
+            Energy Sciences, and the Office of Advanced Scientific Computing.
+
+
+           Job information
+           ---------------
+
+    hostname        = arrow11
+    program         = /home/bylaska/bin/nwchem
+    date            = Mon Dec 20 03:25:05 2021
+
+    compiled        = Fri_Dec_17_17:26:14_2021
+    source          = /home/bylaska/nwchem-releases/nwchem
+    nwchem branch   = 7.0.0
+    nwchem revision = nwchem_on_git-3098-g62825c7
+    ga revision     = 5.8.0
+    use scalapack   = F
+    input           = /home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/H1Li1.nw
+    prefix          = pspw_hf_LiH.
+    data base       = /home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/pspw_hf_LiH.db
+    status          = startup
+    nproc           =       32
+    time left       =     -1s
+
+
+
+           Memory information
+           ------------------
+
+    heap     =  157286398 doubles =   1200.0 Mbytes
+    stack    =  157286395 doubles =   1200.0 Mbytes
+    global   =    1310720 doubles =     10.0 Mbytes (distinct from heap & stack)
+    total    =  315883513 doubles =   2410.0 Mbytes
+    verify   = yes
+    hardfail = no 
+
+
+           Directory information
+           ---------------------
+
+  0 permanent = /home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4
+  0 scratch   = /home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4
+
+
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+              swnc: e theory=pspw4 xc=pbe formula=LiH charge=0 mult=1
+              -------------------------------------------------------
+
+ Scaling coordinates for geometry "geometry" by  1.889725989
+ (inverse scale =  0.529177249)
+
+ ORDER OF PRIMARY AXIS IS BEING SET TO 4
+ C4V symmetry detected
+
+          ------
+          auto-z
+          ------
+  no constraints, skipping    0.0000000000000000     
+  no constraints, skipping    0.0000000000000000     
+
+
+                             Geometry "geometry" -> ""
+                             -------------------------
+
+ Output coordinates in angstroms (scale by  1.889725989 to convert to a.u.)
+
+  No.       Tag          Charge          X              Y              Z
+ ---- ---------------- ---------- -------------- -------------- --------------
+    1 Li                   3.0000     0.00000000     0.00000000    -0.35000000
+    2 H                    1.0000     0.00000000     0.00000000     1.05000000
+
+      Atomic Mass 
+      ----------- 
+
+      Li                 7.016000
+      H                  1.007825
+
+
+ Effective nuclear repulsion energy (a.u.)       1.1339512479
+
+            Nuclear Dipole moment (a.u.) 
+            ----------------------------
+        X                 Y               Z
+ ---------------- ---------------- ----------------
+     0.0000000000     0.0000000000     0.0000000000
+
+      Symmetry information
+      --------------------
+
+ Group name             C4v       
+ Group number             18
+ Group order               8
+ No. of unique centers     2
+
+      Symmetry unique atoms
+
+     1    2
+
+
+
+                                Z-matrix (autoz)
+                                -------- 
+
+ Units are Angstrom for bonds and degrees for angles
+
+      Type          Name      I     J     K     L     M      Value
+      ----------- --------  ----- ----- ----- ----- ----- ----------
+    1 Stretch                  1     2                       1.40000
+
+
+            XYZ format geometry
+            -------------------
+     2
+ geometry
+ Li                    0.00000000     0.00000000    -0.35000000
+ H                     0.00000000     0.00000000     1.05000000
+
+ ==============================================================================
+                                internuclear distances
+ ------------------------------------------------------------------------------
+       center one      |      center two      | atomic units |  angstroms
+ ------------------------------------------------------------------------------
+    2 H                |   1 Li               |     2.64562  |     1.40000
+ ------------------------------------------------------------------------------
+                         number of included internuclear distances:          1
+ ==============================================================================
+
+
+
+          ****************************************************
+          *                                                  *
+          *               NWPW PSPW Calculation              *
+          *                                                  *
+          * [ (Grassmann/Stiefel manifold implementation)  ] *
+          *                                                  *
+          *      [ NorthWest Chemistry implementation ]      *
+          *                                                  *
+          *            version #5.10   06/12/02              *
+          *                                                  *
+          *    This code was developed by Eric J. Bylaska,   *
+          *    and was based upon algorithms and code        *
+          *    developed by the group of Prof. John H. Weare *
+          *                                                  *
+          ****************************************************
+     >>>  JOB STARTED       AT Mon Dec 20 03:25:08 2021  <<<
+          ================ input data ========================
+
+ input psi filename:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/pspw_hf_LiH.movecs
+
+ number of processors used:        32
+ processor grid           :  32 x   1
+ parallel mapping         :2d-hilbert
+ parallel mapping         :  balanced
+ number of threads        :         1
+ parallel io              :       off
+
+ options:
+      boundary conditions  = periodic    (version3)
+      electron spin        = restricted
+      exchange-correlation = Hartree-Fock
+      - HFX relaxed
+      - HFX restricted orbitals :    1
+      - HFX screened coulomb solver
+      - HFX screening radius(pspw:HFX_screening_radius): 0.140E+02
+      - HFX screening power (pspw:HFX_screening_power) : 0.800E+01
+      - HFX screening type (pspw:HFX_screening_type)   : 0
+
+
+ elements involved in the cluster:
+      1: Li  valence charge:  1.0000  lmax=  1
+             comment    : Hamann pseudopotential
+             pseudpotential type            :   0
+             highest angular component      :   1
+             local potential used           :   1
+             number of non-local projections:   1
+             semicore corrections included  :  1.000 (radius)  0.769 (charge)
+             cutoff =   1.869   1.551
+
+      2: H   valence charge:  1.0000  lmax=  1
+             comment    : Parameterized (Chem.Phys.Lett., vol 322, page 447) Hamman psp
+             pseudpotential type            :   0
+             highest angular component      :   1
+             local potential used           :   1
+             number of non-local projections:   1
+             cutoff =   0.800   0.800
+
+
+ total charge:   0.000
+
+ atomic composition:
+     Li  :    1     H   :    1
+
+ number of electrons: spin up=     1 (   1 per task)  down=     1 (   1 per task) (Fourier space)
+ number of orbitals : spin up=     1 (   1 per task)  down=     1 (   1 per task) (Fourier space)
+
+ supercell:
+      cell_name:  cell_default                                      
+      lattice:    a1=<  28.346   0.000   0.000 >
+                  a2=<   0.000  28.346   0.000 >
+                  a3=<   0.000   0.000  28.346 >
+      reciprocal: b1=<   0.222   0.000   0.000 >
+                  b2=<   0.000   0.222   0.000 >
+                  b3=<   0.000   0.000   0.222 >
+      lattice:    a=      28.346 b=     28.346 c=      28.346
+                  alpha=  90.000 beta=  90.000 gamma=  90.000
+                  omega=     22775.6
+
+      density cutoff=100.000  fft=140x140x140(   544264 waves    17008 per task)
+      wavefnc cutoff= 50.000  fft=140x140x140(   192294 waves     6009 per task)
+      Ewald summation: cut radius=    9.02  and  1
+                       Madelung Wigner-Seitz=    1.76011888 (alpha=    2.83729748 rs=17.58438667)
+
+ technical parameters:
+      time step=      5.80     fictitious mass=  400000.0
+      tolerance=0.100E-08 (energy)   0.100E-08 (density)
+      maximum iterations =      1000 (   10 inner    100 outer )
+
+
+
+
+
+== Energy Calculation ==
+
+
+          ============ Grassmann lmbfgs iteration ============
+     >>>  ITERATION STARTED AT Mon Dec 20 03:25:30 2021  <<<
+    iter.           Energy         DeltaE       DeltaRho 
+    ------------------------------------------------------
+      10   -0.7368766552E+00   -0.18481E-10    0.12905E-13
+  *** tolerance ok. iteration terminated
+     >>>  ITERATION ENDED   AT Mon Dec 20 03:25:31 2021  <<<
+
+
+==  Summary Of Results  ==
+
+ number of electrons: spin up=    1.00000  down=    1.00000 (real space)
+
+ total     energy    :  -0.7368766552E+00 (   -0.36844E+00/ion)
+ total orbital energy:  -0.6124554787E+00 (   -0.61246E+00/electron)
+ hartree   energy    :   0.8041328319E+00 (    0.80413E+00/electron)
+ exc-corr  energy    :   0.0000000000E+00 (    0.00000E+00/electron)
+ HF exchange energy  :  -0.5012670359E+00 (   -0.50127E+00/electron)
+ ion-ion   energy    :   0.1784446195E+00 (    0.89222E-01/ion)
+
+ kinetic (planewave) :   0.6704975147E+00 (    0.67050E+00/electron)
+ V_local (planewave) :  -0.1806209064E+01 (   -0.18062E+01/electron)
+ V_nl    (planewave) :  -0.8247552152E-01 (   -0.82476E-01/electron)
+ V_Coul  (planewave) :   0.1608265664E+01 (    0.16083E+01/electron)
+ V_xc.   (planewave) :   0.0000000000E+00 (    0.00000E+00/electron)
+ K.S. HFX energy     :  -0.1002534072E+01 (   -0.10025E+01/electron)
+ Virial Coefficient  :  -0.4182251470E+00
+
+ orbital energies:
+    -0.3062277E+00 (  -8.333eV)
+
+
+== Virtual Orbital Calculation ==
+
+
+ input epsi filename:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/pspw_hf_LiH.emovecs
+
+ COVOs Mimimization
+ ------------------
+CI gradient algorithm =         3
+maxit_sweeps          =         3
+maxit_orb             =       120
+maxit_linesearch      =        15
+maxerror              = 0.100E-08
+
+     orb,it,eci,eold,eci-eold=                    1                    1 -0.75131422601906039      -0.75131422601906039        0.0000000000000000      F
+     orbital   1 current e=  0.470978E+00 error=0.173E-05 (eci= -0.751314226E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    1                    1 -0.75131422602745235      -0.75131422544940629      -5.78046055466074904E-010 F
+     orbital   1 current e=  0.470979E+00 error=0.924E-06 (eci= -0.751314226E+00 error=0.578E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    1                    1 -0.75131422602745235      -0.75131422602745235        0.0000000000000000      F
+     orbital   1 current e=  0.470981E+00 error=0.160E-05 (eci= -0.751314226E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    2                    1 -0.74468480500905776      -0.74468480497884326      -3.02144975705687102E-011 F
+     orbital   2 current e=  0.556628E+00 error=0.419E-05 (eci= -0.744684805E+00 error=0.302E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    2                    1 -0.74468480502321577      -0.74468480500905776      -1.41580080992298463E-011 F
+     orbital   2 current e=  0.556632E+00 error=0.414E-05 (eci= -0.744684805E+00 error=0.142E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    2                    1 -0.74468480505031720      -0.74468480502321577      -2.71014322095197713E-011 F
+     orbital   2 current e=  0.556636E+00 error=0.390E-05 (eci= -0.744684805E+00 error=0.271E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    3                    1 -0.74468480051694830      -0.74468480045800822      -5.89400750428126230E-011 F
+     orbital   3 current e=  0.556647E+00 error=0.360E-05 (eci= -0.744684801E+00 error=0.589E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    3                    1 -0.74468480057239816      -0.74468480051694830      -5.54498669202985184E-011 F
+     orbital   3 current e=  0.556651E+00 error=0.351E-05 (eci= -0.744684801E+00 error=0.554E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    3                    1 -0.74468480062857301      -0.74468480057239816      -5.61748425553787456E-011 F
+     orbital   3 current e=  0.556654E+00 error=0.334E-05 (eci= -0.744684801E+00 error=0.562E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    4                    1 -0.74348208618075451      -0.74348208609437827      -8.63762394942568790E-011 F
+     orbital   4 current e=  0.749291E+00 error=0.343E-05 (eci= -0.743482086E+00 error=0.864E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    4                    1 -0.74348208618075451      -0.74348208618075451        0.0000000000000000      F
+     orbital   4 current e=  0.749295E+00 error=0.357E-05 (eci= -0.743482086E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    4                    1 -0.74348208619372735      -0.74348208611179656      -8.19307954813552897E-011 F
+     orbital   4 current e=  0.749298E+00 error=0.313E-05 (eci= -0.743482086E+00 error=0.819E-10) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    5                    1 -0.73786078306307668      -0.73786078279070944      -2.72367239873005929E-010 F
+     orbital   5 current e=  0.170286E+01 error=0.129E-04 (eci= -0.737860783E+00 error=0.272E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    5                    1 -0.73786078306307668      -0.73786078306307668        0.0000000000000000      F
+     orbital   5 current e=  0.170288E+01 error=0.205E-04 (eci= -0.737860783E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    5                    1 -0.73786078308027658      -0.73786078282088530      -2.59391286228094486E-010 F
+     orbital   5 current e=  0.170289E+01 error=0.111E-04 (eci= -0.737860783E+00 error=0.259E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    6                    1 -0.73773800828506442      -0.73773800814349522      -1.41569200806657136E-010 F
+     orbital   6 current e=  0.169723E+01 error=0.439E-04 (eci= -0.737738008E+00 error=0.142E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    6                    1 -0.73773800828506442      -0.73773800828506442        0.0000000000000000      F
+     orbital   6 current e=  0.169727E+01 error=0.433E-04 (eci= -0.737738008E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    6                    1 -0.73773800837516945      -0.73773800824743252      -1.27736932142852311E-010 F
+     orbital   6 current e=  0.169731E+01 error=0.400E-04 (eci= -0.737738008E+00 error=0.128E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    7                    1 -0.73773798716847017      -0.73773798682511205      -3.43358119714309851E-010 F
+     orbital   7 current e=  0.169757E+01 error=0.331E-04 (eci= -0.737737987E+00 error=0.343E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    7                    1 -0.73773798716847017      -0.73773798716847017        0.0000000000000000      F
+     orbital   7 current e=  0.169761E+01 error=0.392E-04 (eci= -0.737737987E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    7                    1 -0.73773798720531891      -0.73773798688568470      -3.19634207990304731E-010 F
+     orbital   7 current e=  0.169764E+01 error=0.300E-04 (eci= -0.737737987E+00 error=0.320E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    8                    1 -0.73749679122743583      -0.73749679085775510      -3.69680730472055075E-010 F
+     orbital   8 current e=  0.196858E+01 error=0.173E-04 (eci= -0.737496791E+00 error=0.370E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    8                    1 -0.73749679122743583      -0.73749679122743583        0.0000000000000000      F
+     orbital   8 current e=  0.196861E+01 error=0.246E-04 (eci= -0.737496791E+00 error=0.000E+00) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+     orb,it,eci,eold,eci-eold=                    8                    1 -0.73749679124033374      -0.73749679088901832      -3.51315421198705735E-010 F
+     orbital   8 current e=  0.196862E+01 error=0.151E-04 (eci= -0.737496791E+00 error=0.351E-09) iterations   1(   0 preconditioned, Ep,Sp= 20.0  200.0)
+
+ virtual orbital energies:
+     0.1968623E+01 (  53.569eV)
+     0.1697636E+01 (  46.195eV)
+     0.1697308E+01 (  46.186eV)
+     0.1702889E+01 (  46.338eV)
+     0.7492978E+00 (  20.390eV)
+     0.5566543E+00 (  15.147eV)
+     0.5566363E+00 (  15.147eV)
+     0.4709805E+00 (  12.816eV)
+
+
+ == Generating One-Electron and Two-Electron Integrals ==
+
+ begin_one_electron_integrals
+    1    1        -0.6090935354
+    2    1        -0.1512883718
+    3    1        -0.0000078509
+    4    1        -0.0000257420
+    5    1         0.0139748974
+    6    1        -0.0212045482
+    7    1        -0.0000400749
+    8    1        -0.0000104369
+    9    1        -0.0004150730
+    2    2        -0.1067087055
+    3    2         0.0000003583
+    4    2         0.0000005254
+    5    2         0.0026281739
+    6    2         0.2332332613
+    7    2         0.0004518893
+    8    2         0.0001229431
+    9    2        -0.0345488601
+    3    3        -0.0604489408
+    4    3         0.0000000856
+    5    3        -0.0000505028
+    6    3        -0.0006111366
+    7    3         0.2882131447
+    8    3         0.1191659846
+    9    3        -0.0000188807
+    4    4        -0.0604385674
+    5    4        -0.0001706481
+    6    4        -0.0001361832
+    7    4         0.1191089454
+    8    4        -0.2882553493
+    9    4        -0.0004373001
+    5    5         0.0740687770
+    6    5         0.0516881382
+    7    5         0.0003026174
+    8    5        -0.0003891898
+    9    5         0.3476499635
+    6    6         0.9773498909
+    7    6         0.0002045488
+    8    6         0.0000384504
+    9    6        -0.0979296043
+    7    7         0.9704601728
+    8    7         0.0000697038
+    9    7        -0.0002328771
+    8    8         0.9707529033
+    9    8         0.0000323494
+    9    9         1.2291341571
+ end_one_electron_integrals
+
+ begin_two_electron_integrals
+    1    1    1    1        0.3028657960
+    1    1    2    1        0.1512882632
+    1    1    3    1        0.0000078514
+    1    1    4    1        0.0000257430
+    1    1    5    1       -0.0139749659
+    1    1    6    1        0.0212110133
+    1    1    7    1        0.0000400858
+    1    1    8    1        0.0000104411
+    1    1    9    1        0.0004155668
+    1    1    2    2        0.2483486123
+    1    1    3    2       -0.0000032250
+    1    1    4    2       -0.0000114089
+    1    1    5    2        0.0082114188
+    1    1    6    2        0.1460930302
+    1    1    7    2        0.0002876136
+    1    1    8    2        0.0000753516
+    1    1    9    2       -0.0317598915
+    1    1    3    3        0.2549414192
+    1    1    4    3        0.0000000134
+    1    1    5    3       -0.0000092960
+    1    1    6    3       -0.0002233956
+    1    1    7    3        0.1032147350
+    1    1    8    3        0.0426869774
+    1    1    9    3       -0.0000108976
+    1    1    4    4        0.2549458122
+    1    1    5    4       -0.0000313758
+    1    1    6    4       -0.0000594784
+    1    1    7    4        0.0426548786
+    1    1    8    4       -0.1032306779
+    1    1    9    4       -0.0001681870
+    1    1    5    5        0.2862259659
+    1    1    6    5        0.0201341011
+    1    1    7    5        0.0000968481
+    1    1    8    5       -0.0001173038
+    1    1    9    5        0.1135699573
+    1    1    6    6        0.2919067305
+    1    1    7    6        0.0000201031
+    1    1    8    6        0.0000089190
+    1    1    9    6       -0.0057010604
+    1    1    7    7        0.2904711825
+    1    1    8    7        0.0000028687
+    1    1    9    7       -0.0000072846
+    1    1    8    8        0.2904910268
+    1    1    9    8        0.0000079010
+    1    1    9    9        0.2946046230
+    2    1    2    1        0.1164925643
+    2    1    3    1       -0.0000004377
+    2    1    4    1       -0.0000017661
+    2    1    5    1        0.0016366749
+    2    1    6    1        0.0474303567
+    2    1    7    1        0.0000924805
+    2    1    8    1        0.0000249449
+    2    1    9    1       -0.0079570090
+    2    1    2    2        0.1412270329
+    2    1    3    2       -0.0000011986
+    2    1    4    2       -0.0000046303
+    2    1    5    2        0.0042925475
+    2    1    6    2        0.1094855489
+    2    1    7    2        0.0002109662
+    2    1    8    2        0.0000594545
+    2    1    9    2       -0.0131454534
+    2    1    3    3        0.1008453998
+    2    1    4    3        0.0000000169
+    2    1    5    3       -0.0000102936
+    2    1    6    3       -0.0001652926
+    2    1    7    3        0.0780541169
+    2    1    8    3        0.0322797571
+    2    1    9    3       -0.0000051216
+    2    1    4    4        0.1008480546
+    2    1    5    4       -0.0000348383
+    2    1    6    4       -0.0000361765
+    2    1    7    4        0.0322626786
+    2    1    8    4       -0.0780642886
+    2    1    9    4       -0.0001184026
+    2    1    5    5        0.1294073519
+    2    1    6    5        0.0114647650
+    2    1    7    5        0.0000698249
+    2    1    8    5       -0.0000931308
+    2    1    9    5        0.0856711669
+    2    1    6    6        0.1705263461
+    2    1    7    6        0.0000531106
+    2    1    8    6        0.0000173189
+    2    1    9    6       -0.0067306476
+    2    1    7    7        0.1503120217
+    2    1    8    7        0.0000067360
+    2    1    9    7       -0.0000152412
+    2    1    8    8        0.1503367737
+    2    1    9    8        0.0000092234
+    2    1    9    9        0.1572385138
+    3    1    3    1        0.0911139796
+    3    1    4    1        0.0000000001
+    3    1    5    1       -0.0000004030
+    3    1    6    1       -0.0000671456
+    3    1    7    1        0.0312351693
+    3    1    8    1        0.0129181280
+    3    1    9    1       -0.0000024957
+    3    1    2    2        0.0000055213
+    3    1    3    2        0.0011599735
+    3    1    4    2        0.0000001711
+    3    1    5    2       -0.0000091417
+    3    1    6    2       -0.0001387813
+    3    1    7    2        0.0657549624
+    3    1    8    2        0.0271961123
+    3    1    9    2       -0.0000030452
+    3    1    3    3        0.0000228346
+    3    1    4    3        0.0000213666
+    3    1    5    3       -0.0108449190
+    3    1    6    3       -0.0253837358
+    3    1    7    3       -0.0000840157
+    3    1    8    3       -0.0000069425
+    3    1    9    3        0.0206333958
+    3    1    4    4        0.0000123955
+    3    1    5    4        0.0000000137
+    3    1    6    4       -0.0000009530
+    3    1    7    4       -0.0000444103
+    3    1    8    4        0.0000001439
+    3    1    9    4        0.0012635788
+    3    1    5    5       -0.0000036204
+    3    1    6    5       -0.0000374539
+    3    1    7    5        0.0218429670
+    3    1    8    5        0.0090152029
+    3    1    9    5        0.0000421369
+    3    1    6    6       -0.0000045085
+    3    1    7    6        0.0043859100
+    3    1    8    6        0.0018179935
+    3    1    9    6       -0.0000011423
+    3    1    7    7        0.0000127256
+    3    1    8    7        0.0000060283
+    3    1    9    7       -0.0011354397
+    3    1    8    8        0.0000055660
+    3    1    9    8       -0.0007624142
+    3    1    9    9        0.0000119334
+    4    1    4    1        0.0911151743
+    4    1    5    1       -0.0000013389
+    4    1    6    1       -0.0000169900
+    4    1    7    1        0.0129100371
+    4    1    8    1       -0.0312386732
+    4    1    9    1       -0.0000482984
+    4    1    2    2        0.0000177791
+    4    1    3    2       -0.0000001394
+    4    1    4    2        0.0011614507
+    4    1    5    2       -0.0000308424
+    4    1    6    2       -0.0000301767
+    4    1    7    2        0.0271817633
+    4    1    8    2       -0.0657643436
+    4    1    9    2       -0.0000962952
+    4    1    3    3        0.0000414222
+    4    1    4    3        0.0000063053
+    4    1    5    3        0.0000000533
+    4    1    6    3       -0.0000007609
+    4    1    7    3       -0.0000442507
+    4    1    8    3        0.0000003118
+    4    1    9    3        0.0012635408
+    4    1    4    4        0.0000766338
+    4    1    5    4       -0.0108446009
+    4    1    6    4       -0.0253875722
+    4    1    7    4       -0.0000864618
+    4    1    8    4        0.0000474689
+    4    1    9    4        0.0213471394
+    4    1    5    5       -0.0000126247
+    4    1    6    5        0.0000322107
+    4    1    7    5        0.0090630431
+    4    1    8    5       -0.0218181392
+    4    1    9    5        0.0001235342
+    4    1    6    6        0.0000146942
+    4    1    7    6        0.0018161432
+    4    1    8    6       -0.0043902720
+    4    1    9    6       -0.0000275135
+    4    1    7    7        0.0000157205
+    4    1    8    7       -0.0000034158
+    4    1    9    7       -0.0001914800
+    4    1    8    8        0.0000074106
+    4    1    9    8        0.0011828718
+    4    1    9    9        0.0000437832
+    5    1    5    1        0.0957331890
+    5    1    6    1        0.0048285274
+    5    1    7    1        0.0000262219
+    5    1    8    1       -0.0000334177
+    5    1    9    1        0.0314173947
+    5    1    2    2       -0.0089871868
+    5    1    3    2       -0.0000095264
+    5    1    4    2       -0.0000324060
+    5    1    5    2        0.0241626969
+    5    1    6    2        0.0100599242
+    5    1    7    2        0.0000613314
+    5    1    8    2       -0.0000799453
+    5    1    9    2        0.0707337537
+    5    1    3    3       -0.0227610750
+    5    1    4    3        0.0000000359
+    5    1    5    3       -0.0000111447
+    5    1    6    3       -0.0000383191
+    5    1    7    3        0.0223758317
+    5    1    8    3        0.0092349333
+    5    1    9    3        0.0000424509
+    5    1    4    4       -0.0227605817
+    5    1    5    4       -0.0000374281
+    5    1    6    4        0.0000332785
+    5    1    7    4        0.0092821044
+    5    1    8    4       -0.0223510967
+    5    1    9    4        0.0001240571
+    5    1    5    5       -0.0132379814
+    5    1    6    5       -0.0449597123
+    5    1    7    5       -0.0000129729
+    5    1    8    5       -0.0000951484
+    5    1    9    5       -0.0265046460
+    5    1    6    6       -0.0067844133
+    5    1    7    6       -0.0000009734
+    5    1    8    6       -0.0000096693
+    5    1    9    6        0.0194942114
+    5    1    7    7       -0.0048573577
+    5    1    8    7       -0.0000068809
+    5    1    9    7        0.0000512254
+    5    1    8    8       -0.0048725878
+    5    1    9    8       -0.0000009249
+    5    1    9    9       -0.0273225173
+    6    1    6    1        0.0560439623
+    6    1    7    1        0.0000095749
+    6    1    8    1        0.0000039199
+    6    1    9    1       -0.0018277565
+    6    1    2    2        0.0490772137
+    6    1    3    2       -0.0000584884
+    6    1    4    2       -0.0000151269
+    6    1    5    2        0.0059956313
+    6    1    6    2        0.0567836068
+    6    1    7    2        0.0000425337
+    6    1    8    2        0.0000145827
+    6    1    9    2       -0.0045236037
+    6    1    3    3       -0.0070960937
+    6    1    4    3       -0.0000003738
+    6    1    5    3       -0.0000166717
+    6    1    6    3       -0.0000382088
+    6    1    7    3        0.0215667183
+    6    1    8    3        0.0089206983
+    6    1    9    3       -0.0000086395
+    6    1    4    4       -0.0070971489
+    6    1    5    4        0.0000078244
+    6    1    6    4       -0.0000091999
+    6    1    7    4        0.0089170641
+    6    1    8    4       -0.0215702880
+    6    1    9    4       -0.0000399122
+    6    1    5    5       -0.0092934075
+    6    1    6    5        0.0044277473
+    6    1    7    5        0.0000053317
+    6    1    8    5       -0.0000321790
+    6    1    9    5        0.0282380973
+    6    1    6    6        0.0573234015
+    6    1    7    6        0.0000175370
+    6    1    8    6        0.0000053650
+    6    1    9    6       -0.0066947971
+    6    1    7    7        0.0332509751
+    6    1    8    7        0.0000068161
+    6    1    9    7       -0.0000366620
+    6    1    8    8        0.0332692076
+    6    1    9    8       -0.0000073836
+    6    1    9    9        0.0261890207
+    7    1    7    1        0.0523200726
+    7    1    8    1        0.0000015200
+    7    1    9    1       -0.0000024443
+    7    1    2    2        0.0000928807
+    7    1    3    2        0.0274332762
+    7    1    4    2        0.0113410292
+    7    1    5    2        0.0000275566
+    7    1    6    2        0.0000435939
+    7    1    7    2        0.0366401301
+    7    1    8    2        0.0000064612
+    7    1    9    2       -0.0000113469
+    7    1    3    3       -0.0000274840
+    7    1    4    3       -0.0000173854
+    7    1    5    3        0.0087707671
+    7    1    6    3       -0.0022023675
+    7    1    7    3        0.0000242185
+    7    1    8    3        0.0000185059
+    7    1    9    3        0.0032202806
+    7    1    4    4       -0.0000281767
+    7    1    5    4        0.0036404018
+    7    1    6    4       -0.0009093667
+    7    1    7    4       -0.0000018316
+    7    1    8    4       -0.0000377807
+    7    1    9    4        0.0017096259
+    7    1    5    5        0.0000107267
+    7    1    6    5       -0.0000062623
+    7    1    7    5        0.0093192728
+    7    1    8    5       -0.0000041718
+    7    1    9    5        0.0000790562
+    7    1    6    6        0.0000389461
+    7    1    7    6        0.0209978555
+    7    1    8    6        0.0000059985
+    7    1    9    6       -0.0000378590
+    7    1    7    7        0.0001042104
+    7    1    8    7        0.0000191918
+    7    1    9    7        0.0154204127
+    7    1    8    8        0.0000582670
+    7    1    9    8       -0.0004581284
+    7    1    9    9        0.0000937465
+    8    1    8    1        0.0523245576
+    8    1    9    1        0.0000025593
+    8    1    2    2        0.0000265758
+    8    1    3    2        0.0113459511
+    8    1    4    2       -0.0274368598
+    8    1    5    2       -0.0000316924
+    8    1    6    2        0.0000135004
+    8    1    7    2        0.0000043196
+    8    1    8    2        0.0366544290
+    8    1    9    2        0.0000069668
+    8    1    3    3       -0.0000021751
+    8    1    4    3        0.0000003197
+    8    1    5    3        0.0036193546
+    8    1    6    3       -0.0009093280
+    8    1    7    3        0.0000113991
+    8    1    8    3        0.0000014153
+    8    1    9    3        0.0009184140
+    8    1    4    4        0.0000180538
+    8    1    5    4       -0.0087599964
+    8    1    6    4        0.0022018184
+    8    1    7    4        0.0000126796
+    8    1    8    4       -0.0000230120
+    8    1    9    4       -0.0031338226
+    8    1    5    5       -0.0000339369
+    8    1    6    5       -0.0000061166
+    8    1    7    5       -0.0000096977
+    8    1    8    5        0.0093026008
+    8    1    9    5       -0.0000063727
+    8    1    6    6        0.0000107723
+    8    1    7    6        0.0000056479
+    8    1    8    6        0.0210126908
+    8    1    9    6       -0.0000083758
+    8    1    7    7        0.0000250212
+    8    1    8    7        0.0000345066
+    8    1    9    7       -0.0004583433
+    8    1    8    8        0.0000371992
+    8    1    9    8        0.0149178306
+    8    1    9    9       -0.0000116305
+    9    1    9    1        0.0479512500
+    9    1    2    2       -0.0011565846
+    9    1    3    2       -0.0000021439
+    9    1    4    2       -0.0000433328
+    9    1    5    2        0.0321893156
+    9    1    6    2       -0.0051362788
+    9    1    7    2       -0.0000127827
+    9    1    8    2        0.0000062022
+    9    1    9    2        0.0355547747
+    9    1    3    3        0.0097171794
+    9    1    4    3        0.0005533105
+    9    1    5    3        0.0000173639
+    9    1    6    3       -0.0000006112
+    9    1    7    3        0.0004008658
+    9    1    8    3        0.0000443619
+    9    1    9    3        0.0000095501
+    9    1    4    4        0.0100245369
+    9    1    5    4        0.0000514434
+    9    1    6    4        0.0000033960
+    9    1    7    4        0.0002841447
+    9    1    8    4       -0.0003773436
+    9    1    9    4        0.0000312445
+    9    1    5    5       -0.0094695451
+    9    1    6    5       -0.0003503886
+    9    1    7    5        0.0000154873
+    9    1    8    5       -0.0000085516
+    9    1    9    5       -0.0160512012
+    9    1    6    6       -0.0032329204
+    9    1    7    6       -0.0000329670
+    9    1    8    6       -0.0000094238
+    9    1    9    6        0.0149651680
+    9    1    7    7        0.0165459085
+    9    1    8    7       -0.0004243818
+    9    1    9    7        0.0000735924
+    9    1    8    8        0.0160783063
+    9    1    9    8       -0.0000189902
+    9    1    9    9       -0.0329800401
+    2    2    2    2        0.2239529927
+    2    2    3    2       -0.0000044158
+    2    2    4    2       -0.0000153404
+    2    2    5    2        0.0103007225
+    2    2    6    2        0.1450242481
+    2    2    7    2        0.0002858630
+    2    2    8    2        0.0000758286
+    2    2    9    2       -0.0291403767
+    2    2    3    3        0.1952636911
+    2    2    4    3        0.0000000100
+    2    2    5    3       -0.0000070795
+    2    2    6    3       -0.0001879733
+    2    2    7    3        0.0874663236
+    2    2    8    3        0.0361750854
+    2    2    9    3       -0.0000108503
+    2    2    4    4        0.1952670747
+    2    2    5    4       -0.0000239042
+    2    2    6    4       -0.0000504157
+    2    2    7    4        0.0361485816
+    2    2    8    4       -0.0874806801
+    2    2    9    4       -0.0001508095
+    2    2    5    5        0.2200688883
+    2    2    6    5        0.0177608992
+    2    2    7    5        0.0000823260
+    2    2    8    5       -0.0000996642
+    2    2    9    5        0.1025557357
+    2    2    6    6        0.2613137119
+    2    2    7    6        0.0000468172
+    2    2    8    6        0.0000163537
+    2    2    9    6       -0.0070010593
+    2    2    7    7        0.2460250069
+    2    2    8    7        0.0000053279
+    2    2    9    7       -0.0000090213
+    2    2    8    8        0.2460496757
+    2    2    9    8        0.0000072744
+    2    2    9    9        0.2472546502
+    3    2    3    2        0.0237540771
+    3    2    4    2       -0.0000000002
+    3    2    5    2       -0.0000001155
+    3    2    6    2       -0.0000138801
+    3    2    7    2        0.0064556159
+    3    2    8    2        0.0026713359
+    3    2    9    2       -0.0000069263
+    3    2    3    3       -0.0000057764
+    3    2    4    3       -0.0000056376
+    3    2    5    3        0.0029262729
+    3    2    6    3        0.0037307816
+    3    2    7    3        0.0000083714
+    3    2    8    3       -0.0000000338
+    3    2    9    3       -0.0037693289
+    3    2    4    4       -0.0000030613
+    3    2    5    4        0.0000000149
+    3    2    6    4        0.0000001539
+    3    2    7    4        0.0000035499
+    3    2    8    4        0.0000021793
+    3    2    9    4       -0.0000490641
+    3    2    5    5        0.0000010544
+    3    2    6    5        0.0000053302
+    3    2    7    5       -0.0013494538
+    3    2    8    5       -0.0005570449
+    3    2    9    5       -0.0000005248
+    3    2    6    6       -0.0000637263
+    3    2    7    6        0.0146969085
+    3    2    8    6        0.0060784341
+    3    2    9    6       -0.0000142630
+    3    2    7    7        0.0000338161
+    3    2    8    7        0.0000228355
+    3    2    9    7        0.0073590933
+    3    2    8    8       -0.0000007280
+    3    2    9    8        0.0027220023
+    3    2    9    9        0.0000148689
+    4    2    4    2        0.0237538814
+    4    2    5    2       -0.0000004764
+    4    2    6    2       -0.0000096267
+    4    2    7    2        0.0026699352
+    4    2    8    2       -0.0064582060
+    4    2    9    2       -0.0000354876
+    4    2    3    3       -0.0000106358
+    4    2    4    3       -0.0000016628
+    4    2    5    3       -0.0000000310
+    4    2    6    3       -0.0000000276
+    4    2    7    3       -0.0000028005
+    4    2    8    3       -0.0000028332
+    4    2    9    3       -0.0000489471
+    4    2    4    4       -0.0000197760
+    4    2    5    4        0.0029260619
+    4    2    6    4        0.0037312387
+    4    2    7    4        0.0000077259
+    4    2    8    4        0.0000031175
+    4    2    9    4       -0.0037944898
+    4    2    5    5        0.0000031358
+    4    2    6    5        0.0000080465
+    4    2    7    5       -0.0005572480
+    4    2    8    5        0.0013487364
+    4    2    9    5       -0.0000009173
+    4    2    6    6       -0.0000245541
+    4    2    7    6        0.0060751323
+    4    2    8    6       -0.0146978040
+    4    2    9    6       -0.0000153804
+    4    2    7    7       -0.0000126905
+    4    2    8    7       -0.0000204704
+    4    2    9    7        0.0033383094
+    4    2    8    8       -0.0000419216
+    4    2    9    8       -0.0072870240
+    4    2    9    9        0.0000374428
+    5    2    5    2        0.0250288190
+    5    2    6    2        0.0063282365
+    5    2    7    2        0.0000104180
+    5    2    8    2       -0.0000046923
+    5    2    9    2        0.0238622456
+    5    2    3    3        0.0066500108
+    5    2    4    3       -0.0000000065
+    5    2    5    3        0.0000021272
+    5    2    6    3       -0.0000055015
+    5    2    7    3        0.0037326771
+    5    2    8    3        0.0015420691
+    5    2    9    3        0.0000026371
+    5    2    4    4        0.0066500176
+    5    2    5    4        0.0000071419
+    5    2    6    4        0.0000071373
+    5    2    7    4        0.0015481382
+    5    2    8    4       -0.0037299870
+    5    2    9    4        0.0000054132
+    5    2    5    5        0.0053150464
+    5    2    6    5       -0.0003623112
+    5    2    7    5        0.0000050059
+    5    2    8    5       -0.0000061764
+    5    2    9    5       -0.0028944487
+    5    2    6    6        0.0125583476
+    5    2    7    6        0.0000006734
+    5    2    8    6       -0.0000249471
+    5    2    9    6        0.0119049943
+    5    2    7    7        0.0194841699
+    5    2    8    7       -0.0000067297
+    5    2    9    7        0.0000518414
+    5    2    8    8        0.0194689686
+    5    2    9    8       -0.0000153293
+    5    2    9    9       -0.0094478208
+    6    2    6    2        0.1204007507
+    6    2    7    2        0.0000981363
+    6    2    8    2        0.0000287811
+    6    2    9    2       -0.0073617716
+    6    2    3    3        0.0970965021
+    6    2    4    3        0.0000000439
+    6    2    5    3        0.0000057428
+    6    2    6    3       -0.0001305092
+    6    2    7    3        0.0681628521
+    6    2    8    3        0.0281879671
+    6    2    9    3       -0.0000328736
+    6    2    4    4        0.0970990449
+    6    2    5    4       -0.0000209529
+    6    2    6    4       -0.0000255817
+    6    2    7    4        0.0281769424
+    6    2    8    4       -0.0681690038
+    6    2    9    4       -0.0000938851
+    6    2    5    5        0.1171288063
+    6    2    6    5        0.0076086248
+    6    2    7    5        0.0000221600
+    6    2    8    5       -0.0000963340
+    6    2    9    5        0.0680273381
+    6    2    6    6        0.1796904976
+    6    2    7    6        0.0000586411
+    6    2    8    6        0.0000185406
+    6    2    9    6       -0.0076084835
+    6    2    7    7        0.1441000162
+    6    2    8    7        0.0000062164
+    6    2    9    7       -0.0000157908
+    6    2    8    8        0.1441239781
+    6    2    9    8        0.0000061445
+    6    2    9    9        0.1489179516
+    7    2    7    2        0.0719915175
+    7    2    8    2        0.0000085009
+    7    2    9    2       -0.0000129287
+    7    2    3    3        0.0002017048
+    7    2    4    3        0.0000138742
+    7    2    5    3       -0.0058253085
+    7    2    6    3       -0.0058804776
+    7    2    7    3        0.0000872021
+    7    2    8    3        0.0000599348
+    7    2    9    3        0.0157785887
+    7    2    4    4        0.0002037180
+    7    2    5    4       -0.0024070689
+    7    2    6    4       -0.0024317041
+    7    2    7    4        0.0000047227
+    7    2    8    4       -0.0001238927
+    7    2    9    4        0.0074280021
+    7    2    5    5        0.0002174767
+    7    2    6    5       -0.0000202934
+    7    2    7    5        0.0213058509
+    7    2    8    5       -0.0000060582
+    7    2    9    5        0.0001894211
+    7    2    6    6        0.0003070992
+    7    2    7    6        0.0145098609
+    7    2    8    6        0.0000032060
+    7    2    9    6       -0.0000180185
+    7    2    7    7        0.0003248368
+    7    2    8    7        0.0000102713
+    7    2    9    7        0.0009793307
+    7    2    8    8        0.0002797010
+    7    2    9    8       -0.0002472815
+    7    2    9    9        0.0003066038
+    8    2    8    2        0.0720148996
+    8    2    9    2        0.0000020690
+    8    2    3    3        0.0000489382
+    8    2    4    3        0.0000011953
+    8    2    5    3       -0.0024084078
+    8    2    6    3       -0.0024318549
+    8    2    7    3        0.0000345449
+    8    2    8    3        0.0000061744
+    8    2    9    3        0.0055308971
+    8    2    4    4        0.0000279526
+    8    2    5    4        0.0058254358
+    8    2    6    4        0.0058834878
+    8    2    7    4        0.0000333828
+    8    2    8    4       -0.0000614298
+    8    2    9    4       -0.0155587735
+    8    2    5    5        0.0000757641
+    8    2    6    5       -0.0000061603
+    8    2    7    5       -0.0000201505
+    8    2    8    5        0.0212753896
+    8    2    9    5       -0.0000151445
+    8    2    6    6        0.0000819274
+    8    2    7    6        0.0000003854
+    8    2    8    6        0.0145189498
+    8    2    9    6       -0.0000013687
+    8    2    7    7        0.0000766517
+    8    2    8    7        0.0000240734
+    8    2    9    7       -0.0002497058
+    8    2    8    8        0.0000923715
+    8    2    9    8        0.0007195216
+    8    2    9    9        0.0000688535
+    9    2    9    2        0.0688750800
+    9    2    3    3       -0.0306781052
+    9    2    4    3       -0.0000327493
+    9    2    5    3       -0.0000049722
+    9    2    6    3       -0.0000106282
+    9    2    7    3        0.0082705319
+    9    2    8    3        0.0032238431
+    9    2    9    3        0.0000321216
+    9    2    4    4       -0.0306949718
+    9    2    5    4       -0.0000100172
+    9    2    6    4        0.0000356458
+    9    2    7    4        0.0036079599
+    9    2    8    4       -0.0082129497
+    9    2    9    4        0.0000899005
+    9    2    5    5       -0.0273828014
+    9    2    6    5       -0.0207165441
+    9    2    7    5        0.0000043492
+    9    2    8    5       -0.0000352522
+    9    2    9    5       -0.0321789746
+    9    2    6    6       -0.0308096458
+    9    2    7    6       -0.0000165359
+    9    2    8    6       -0.0000034795
+    9    2    9    6        0.0257335374
+    9    2    7    7       -0.0231951225
+    9    2    8    7       -0.0000640454
+    9    2    9    7        0.0000677325
+    9    2    8    8       -0.0232697083
+    9    2    9    8       -0.0000007897
+    9    2    9    9       -0.0508522699
+    3    3    3    3        0.2609854108
+    3    3    4    3       -0.0000051625
+    3    3    5    3       -0.0000116666
+    3    3    6    3       -0.0001725658
+    3    3    7    3        0.0761864977
+    3    3    8    3        0.0315411201
+    3    3    9    3       -0.0000064971
+    3    3    4    4        0.2136544569
+    3    3    5    4       -0.0000274995
+    3    3    6    4       -0.0000515663
+    3    3    7    4        0.0286198686
+    3    3    8    4       -0.0693516174
+    3    3    9    4       -0.0001178753
+    3    3    5    5        0.2387859732
+    3    3    6    5        0.0193540481
+    3    3    7    5        0.0000733985
+    3    3    8    5       -0.0000753054
+    3    3    9    5        0.0764339599
+    3    3    6    6        0.2250258413
+    3    3    7    6       -0.0000527185
+    3    3    8    6       -0.0000243296
+    3    3    9    6       -0.0066048166
+    3    3    7    7        0.2573697368
+    3    3    8    7        0.0138698998
+    3    3    9    7       -0.0000125963
+    3    3    8    8        0.2301822716
+    3    3    9    8        0.0000056228
+    3    3    9    9        0.2317487374
+    4    3    4    3        0.0259547340
+    4    3    5    3       -0.0000071192
+    4    3    6    3       -0.0000081132
+    4    3    7    3        0.0012254560
+    4    3    8    3       -0.0030524332
+    4    3    9    3        0.0000028161
+    4    3    4    4        0.0000052004
+    4    3    5    4       -0.0000021065
+    4    3    6    4       -0.0000088402
+    4    3    7    4        0.0030526282
+    4    3    8    4        0.0012272115
+    4    3    9    4        0.0000021961
+    4    3    5    5       -0.0000000019
+    4    3    6    5        0.0000000407
+    4    3    7    5        0.0000003598
+    4    3    8    5       -0.0000002904
+    4    3    9    5       -0.0000715488
+    4    3    6    6        0.0000003471
+    4    3    7    6       -0.0000138089
+    4    3    8    6        0.0000344272
+    4    3    9    6       -0.0002326940
+    4    3    7    7        0.0142469288
+    4    3    8    7       -0.0145925977
+    4    3    9    7       -0.0000237747
+    4    3    8    8       -0.0142472134
+    4    3    9    8       -0.0000082245
+    4    3    9    9        0.0003834392
+    5    3    5    3        0.0302652558
+    5    3    6    3        0.0034640558
+    5    3    7    3        0.0000036467
+    5    3    8    3       -0.0000058655
+    5    3    9    3       -0.0017343360
+    5    3    4    4       -0.0000081337
+    5    3    5    4       -0.0000000112
+    5    3    6    4        0.0000001196
+    5    3    7    4       -0.0000025816
+    5    3    8    4        0.0000050652
+    5    3    9    4       -0.0001560436
+    5    3    5    5       -0.0000052004
+    5    3    6    5       -0.0000066689
+    5    3    7    5        0.0047622701
+    5    3    8    5        0.0019702791
+    5    3    9    5       -0.0000117429
+    5    3    6    6       -0.0000042886
+    5    3    7    6       -0.0024048332
+    5    3    8    6       -0.0009899750
+    5    3    9    6       -0.0000474158
+    5    3    7    7        0.0000023638
+    5    3    8    7       -0.0000193208
+    5    3    9    7        0.0177561581
+    5    3    8    8       -0.0000308934
+    5    3    9    8        0.0072270506
+    5    3    9    9       -0.0000102830
+    6    3    6    3        0.0187328875
+    6    3    7    3       -0.0001127774
+    6    3    8    3       -0.0000549613
+    6    3    9    3       -0.0060677844
+    6    3    4    4       -0.0001539176
+    6    3    5    4        0.0000001371
+    6    3    6    4        0.0000005865
+    6    3    7    4       -0.0000382647
+    6    3    8    4        0.0001172873
+    6    3    9    4       -0.0003999525
+    6    3    5    5       -0.0001845248
+    6    3    6    5        0.0000150397
+    6    3    7    5       -0.0061923000
+    6    3    8    5       -0.0025538431
+    6    3    9    5       -0.0001228461
+    6    3    6    6       -0.0002547300
+    6    3    7    6        0.0067732202
+    6    3    8    6        0.0028002720
+    6    3    9    6        0.0000056406
+    6    3    7    7       -0.0002094553
+    6    3    8    7       -0.0000001961
+    6    3    9    7        0.0000888505
+    6    3    8    8       -0.0002098146
+    6    3    9    8        0.0000846084
+    6    3    9    9       -0.0002095538
+    7    3    7    3        0.0771959398
+    7    3    8    3        0.0273408837
+    7    3    9    3       -0.0000135256
+    7    3    4    4        0.0693405946
+    7    3    5    4       -0.0000196079
+    7    3    6    4       -0.0000095836
+    7    3    7    4        0.0274566249
+    7    3    8    4       -0.0553414563
+    7    3    9    4       -0.0000618510
+    7    3    5    5        0.0864573274
+    7    3    6    5       -0.0049304497
+    7    3    7    5        0.0000208013
+    7    3    8    5       -0.0000788010
+    7    3    9    5        0.0501982416
+    7    3    6    6        0.1050004079
+    7    3    7    6        0.0000093529
+    7    3    8    6        0.0000064139
+    7    3    9    6       -0.0019031379
+    7    3    7    7        0.1120372387
+    7    3    8    7        0.0032530048
+    7    3    9    7       -0.0000027041
+    7    3    8    8        0.0978166280
+    7    3    9    8        0.0000051475
+    7    3    9    9        0.0977995702
+    8    3    8    3        0.0227162547
+    8    3    9    3        0.0000016803
+    8    3    4    4        0.0286483833
+    8    3    5    4       -0.0000087224
+    8    3    6    4        0.0000142830
+    8    3    7    4       -0.0000578191
+    8    3    8    4       -0.0274571235
+    8    3    9    4       -0.0000214592
+    8    3    5    5        0.0357560298
+    8    3    6    5       -0.0020287632
+    8    3    7    5        0.0000017357
+    8    3    8    5       -0.0000417240
+    8    3    9    5        0.0206926865
+    8    3    6    6        0.0434254774
+    8    3    7    6        0.0000083602
+    8    3    8    6       -0.0000110515
+    8    3    9    6       -0.0007614046
+    8    3    7    7        0.0407544550
+    8    3    8    7        0.0071168902
+    8    3    9    7       -0.0000006497
+    8    3    8    8        0.0460384837
+    8    3    9    8        0.0000023244
+    8    3    9    9        0.0404351855
+    9    3    9    3        0.0163720852
+    9    3    4    4       -0.0000083404
+    9    3    5    4       -0.0001560974
+    9    3    6    4       -0.0004001171
+    9    3    7    4       -0.0000182493
+    9    3    8    4       -0.0000089318
+    9    3    9    4        0.0006579212
+    9    3    5    5       -0.0000167955
+    9    3    6    5       -0.0000478854
+    9    3    7    5        0.0129985893
+    9    3    8    5        0.0050373910
+    9    3    9    5       -0.0000057894
+    9    3    6    6       -0.0000032699
+    9    3    7    6       -0.0013049980
+    9    3    8    6       -0.0005414042
+    9    3    9    6       -0.0000024641
+    9    3    7    7       -0.0000139533
+    9    3    8    7       -0.0000007221
+    9    3    9    7        0.0035488471
+    9    3    8    8       -0.0000080913
+    9    3    9    8        0.0014744278
+    9    3    9    9       -0.0000192664
+    4    4    4    4        0.2609931607
+    4    4    5    4       -0.0000393847
+    4    4    6    4       -0.0000659719
+    4    4    7    4        0.0315110462
+    4    4    8    4       -0.0762029184
+    4    4    9    4       -0.0001169581
+    4    4    5    5        0.2387898411
+    4    4    6    5        0.0193542023
+    4    4    7    5        0.0000728815
+    4    4    8    5       -0.0000723452
+    4    4    9    5        0.0763960530
+    4    4    6    6        0.2250308857
+    4    4    7    6        0.0000134094
+    4    4    8    6        0.0000068761
+    4    4    9    6       -0.0067342130
+    4    4    7    7        0.2301766827
+    4    4    8    7       -0.0138697085
+    4    4    9    7       -0.0000292987
+    4    4    8    8        0.2573843715
+    4    4    9    8        0.0000438652
+    4    4    9    9        0.2319650077
+    5    4    5    4        0.0302655778
+    5    4    6    4        0.0034644515
+    5    4    7    4        0.0000003273
+    5    4    8    4        0.0000214358
+    5    4    9    4       -0.0018219710
+    5    4    5    5       -0.0000175081
+    5    4    6    5        0.0000092116
+    5    4    7    5        0.0019629096
+    5    4    8    5       -0.0047656244
+    5    4    9    5       -0.0000451881
+    5    4    6    6       -0.0000505443
+    5    4    7    6       -0.0010032422
+    5    4    8    6        0.0023985419
+    5    4    9    6       -0.0000412663
+    5    4    7    7       -0.0000336016
+    5    4    8    7       -0.0000182233
+    5    4    9    7        0.0074463413
+    5    4    8    8        0.0000107585
+    5    4    9    8       -0.0177336876
+    5    4    9    9       -0.0000838108
+    6    4    6    4        0.0187349922
+    6    4    7    4        0.0000183354
+    6    4    8    4        0.0000027730
+    6    4    9    4       -0.0062937803
+    6    4    5    5       -0.0000397729
+    6    4    6    5       -0.0000352838
+    6    4    7    5       -0.0025723269
+    6    4    8    5        0.0061836936
+    6    4    9    5       -0.0000781238
+    6    4    6    6       -0.0000632320
+    6    4    7    6        0.0027994298
+    6    4    8    6       -0.0067735467
+    6    4    9    6        0.0000015897
+    6    4    7    7       -0.0000525580
+    6    4    8    7       -0.0000007860
+    6    4    9    7       -0.0000089398
+    6    4    8    8       -0.0000546159
+    6    4    9    8       -0.0000939617
+    6    4    9    9       -0.0000520218
+    7    4    7    4        0.0227166888
+    7    4    8    4       -0.0273413013
+    7    4    9    4       -0.0000456181
+    7    4    5    5        0.0357257701
+    7    4    6    5       -0.0020557695
+    7    4    7    5       -0.0000031042
+    7    4    8    5       -0.0000261178
+    7    4    9    5        0.0208059420
+    7    4    6    6        0.0433954868
+    7    4    7    6        0.0000098418
+    7    4    8    6        0.0000020768
+    7    4    9    6       -0.0008090444
+    7    4    7    7        0.0460016699
+    7    4    8    7       -0.0071124252
+    7    4    9    7       -0.0000116834
+    7    4    8    8        0.0407285858
+    7    4    9    8        0.0000023093
+    7    4    9    9        0.0404278799
+    8    4    8    4        0.0771968243
+    8    4    9    4        0.0000692651
+    8    4    5    5       -0.0864718328
+    8    4    6    5        0.0049162884
+    8    4    7    5       -0.0000400273
+    8    4    8    5        0.0000832635
+    8    4    9    5       -0.0501956724
+    8    4    6    6       -0.1050166822
+    8    4    7    6       -0.0000231718
+    8    4    8    6       -0.0000082880
+    8    4    9    6        0.0019037369
+    8    4    7    7       -0.0978163338
+    8    4    8    7        0.0032444525
+    8    4    9    7        0.0000046072
+    8    4    8    8       -0.1120712812
+    8    4    9    8       -0.0000185462
+    8    4    9    9       -0.0978196005
+    9    4    9    4        0.0167420992
+    9    4    5    5       -0.0001645631
+    9    4    6    5       -0.0000744299
+    9    4    7    5        0.0056840490
+    9    4    8    5       -0.0129216078
+    9    4    9    5       -0.0001065556
+    9    4    6    6       -0.0001696697
+    9    4    7    6       -0.0005368808
+    9    4    8    6        0.0013061435
+    9    4    9    6        0.0000180381
+    9    4    7    7       -0.0001565625
+    9    4    8    7        0.0000040762
+    9    4    9    7        0.0014629737
+    9    4    8    8       -0.0001582418
+    9    4    9    8       -0.0035573479
+    9    4    9    9       -0.0002021945
+    5    5    5    5        0.3174080879
+    5    5    6    5        0.0181607791
+    5    5    7    5        0.0000845948
+    5    5    8    5       -0.0001060527
+    5    5    9    5        0.1075533821
+    5    5    6    6        0.2660790508
+    5    5    7    6        0.0000130464
+    5    5    8    6        0.0000188139
+    5    5    9    6        0.0083344931
+    5    5    7    7        0.2592490868
+    5    5    8    7       -0.0000039063
+    5    5    9    7        0.0000423293
+    5    5    8    8        0.2592506231
+    5    5    9    8       -0.0000347768
+    5    5    9    9        0.2992577053
+    6    5    6    5        0.0390421508
+    6    5    7    5        0.0000079584
+    6    5    8    5        0.0000300972
+    6    5    9    5        0.0238534342
+    6    5    6    6        0.0209123877
+    6    5    7    6        0.0000126324
+    6    5    8    6       -0.0000059621
+    6    5    9    6        0.0014461751
+    6    5    7    7        0.0180614955
+    6    5    8    7        0.0000017177
+    6    5    9    7       -0.0000126734
+    6    5    8    8        0.0180666088
+    6    5    9    8        0.0000003887
+    6    5    9    9        0.0192530559
+    7    5    7    5        0.0199161282
+    7    5    8    5       -0.0000095811
+    7    5    9    5        0.0000861161
+    7    5    6    6        0.0001031454
+    7    5    7    6       -0.0002702475
+    7    5    8    6        0.0000002188
+    7    5    9    6       -0.0000106977
+    7    5    7    7        0.0000968794
+    7    5    8    7       -0.0000094124
+    7    5    9    7        0.0084261078
+    7    5    8    8        0.0000906193
+    7    5    9    8       -0.0000559397
+    7    5    9    9        0.0000859325
+    8    5    8    5        0.0198935674
+    8    5    9    5       -0.0000735748
+    8    5    6    6       -0.0001186481
+    8    5    7    6        0.0000009758
+    8    5    8    6       -0.0002670272
+    8    5    9    6        0.0000003018
+    8    5    7    7       -0.0001130758
+    8    5    8    7        0.0000027799
+    8    5    9    7       -0.0000578974
+    8    5    8    8       -0.0001311782
+    8    5    9    8        0.0083714576
+    8    5    9    9       -0.0001043775
+    9    5    9    5        0.0913245229
+    9    5    6    6        0.1183659569
+    9    5    7    6        0.0000305934
+    9    5    8    6        0.0000128616
+    9    5    9    6       -0.0071419882
+    9    5    7    7        0.1066661194
+    9    5    8    7        0.0000229341
+    9    5    9    7       -0.0000181509
+    9    5    8    8        0.1067052250
+    9    5    9    8        0.0000049375
+    9    5    9    9        0.1332908247
+    6    6    6    6        0.3221435788
+    6    6    7    6        0.0000175989
+    6    6    8    6        0.0000088618
+    6    6    9    6       -0.0062291305
+    6    6    7    7        0.2811087197
+    6    6    8    7        0.0000040663
+    6    6    9    7       -0.0000169146
+    6    6    8    8        0.2811331364
+    6    6    9    8        0.0000084819
+    6    6    9    9        0.2875796753
+    7    6    7    6        0.0226195168
+    7    6    8    6        0.0000010017
+    7    6    9    6       -0.0000076733
+    7    6    7    7        0.0000223672
+    7    6    8    7        0.0000008910
+    7    6    9    7        0.0022031488
+    7    6    8    8        0.0000350426
+    7    6    9    8       -0.0001349898
+    7    6    9    9        0.0000590734
+    8    6    8    6        0.0226217240
+    8    6    9    6       -0.0000034596
+    8    6    7    7        0.0000123035
+    8    6    8    7       -0.0000046728
+    8    6    9    7       -0.0001399646
+    8    6    8    8        0.0000095010
+    8    6    9    8        0.0020520477
+    8    6    9    9        0.0000112654
+    9    6    9    6        0.0228767406
+    9    6    7    7       -0.0040037098
+    9    6    8    7        0.0000806488
+    9    6    9    7        0.0000071643
+    9    6    8    8       -0.0039236674
+    9    6    9    8       -0.0000007633
+    9    6    9    9       -0.0089351181
+    7    7    7    7        0.3209082271
+    7    7    8    7       -0.0000569689
+    7    7    9    7        0.0000104846
+    7    7    8    8        0.2720038960
+    7    7    9    8        0.0000075085
+    7    7    9    9        0.2693729470
+    8    7    8    7        0.0254695249
+    8    7    9    7        0.0000030725
+    8    7    8    8        0.0000609909
+    8    7    9    8        0.0000083287
+    8    7    9    9       -0.0002924579
+    9    7    9    7        0.0218097796
+    9    7    8    8        0.0000023483
+    9    7    9    8       -0.0003012415
+    9    7    9    9       -0.0000246016
+    8    8    8    8        0.3209457831
+    8    8    9    8        0.0000038102
+    8    8    9    9        0.2690773908
+    9    8    9    8        0.0214855509
+    9    8    9    9        0.0000137978
+    9    9    9    9        0.3347513265
+ end_two_electron_integrals
+
+
+ output epsi filename:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/pspw_hf_LiH.emovecs
+
+ Total PSPW energy     :  -0.7368766552E+00
+
+
+=== Spin Contamination ===
+
+ <Sexact^2> =    0.0000000000000000     
+ <S^2>      =    0.0000000000000000     
+
+
+
+== Center of Charge ==
+
+spin up     (   -0.0000,    0.0000,    1.8017 )
+spin down   (   -0.0000,    0.0000,    1.8017 )
+     total  (   -0.0000,    0.0000,    1.8017 )
+ionic       (    0.0000,    0.0000,    0.6614 )
+
+
+== Molecular Dipole wrt Center of Mass ==
+
+mu   =  (    0.0000,   -0.0000,   -2.2806 ) au
+|mu| =     2.2806 au,       5.7964 Debye
+
+ output psi filename:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/pspw_hf_LiH.movecs
+
+ Writing Crystallographic Information File:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/LiH.cif
+   - cell not shifted (nwpw:cif_shift_cell .false.)
+
+
+== Timing ==
+
+cputime in seconds
+  prologue    :   0.218618E+02
+  main loop   :   0.453247E+03
+  epilogue    :   0.178130E+00
+  total       :   0.475287E+03
+  cputime/step:   0.906494E+02       (       5 evalulations,       1 linesearches)
+
+
+Time spent doing                        total          step       percent
+  total time                 :   0.475321E+03  0.950643E+02       100.0 %
+  i/o time                   :   0.319380E+01  0.638760E+00         0.7 %
+  FFTs                       :   0.274541E+03  0.549083E+02        57.8 %
+  dot products               :   0.157009E+02  0.314019E+01         3.3 %
+  geodesic                   :   0.129774E-01  0.259547E-02         0.0 %
+  ffm_dgemm                  :   0.219894E-02  0.439788E-03         0.0 %
+  fmf_dgemm                  :   0.103753E-01  0.207505E-02         0.0 %
+  mmm_dgemm                  :   0.655651E-04  0.131130E-04         0.0 %
+  m_diagonalize              :   0.103951E-03  0.207901E-04         0.0 %
+  local pseudopotentials     :   0.902366E+00  0.180473E+00         0.2 %
+  non-local pseudopotentials :   0.616203E+01  0.123241E+01         1.3 %
+  hartree potentials         :   0.288106E+01  0.576212E+00         0.6 %
+  ion-ion interaction        :   0.280234E+01  0.560467E+00         0.6 %
+  structure factors          :   0.699227E+00  0.139845E+00         0.1 %
+  phase factors              :   0.252724E-04  0.505447E-05         0.0 %
+  masking and packing        :   0.638256E+02  0.127651E+02        13.4 %
+  queue fft                  :   0.532711E+02  0.106542E+02        11.2 %
+  queue fft (serial)         :   0.113070E+02  0.226140E+01         2.4 %
+  queue fft (message passing):   0.416264E+02  0.832528E+01         8.8 %
+  HFX potential              :   0.520599E+02  0.104120E+02        11.0 %
+  non-local psp FFM          :   0.539448E+01  0.107890E+01         1.1 %
+  non-local psp FMF          :   0.592644E+00  0.118529E+00         0.1 %
+  non-local psp FFM A        :   0.864831E-01  0.172966E-01         0.0 %
+  non-local psp FFM B        :   0.648604E-01  0.129721E-01         0.0 %
+
+== HFX Counters ==
+  HFX Evalulations         =   695
+  Lin ACE HFX Evalulations =     0
+
+
+     >>>  JOB COMPLETED     AT Mon Dec 20 03:33:03 2021  <<<
+
+ Task  times  cpu:      475.3s     wall:      477.8s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ >>>> PSPW Parallel Module - pspw_dplot <<<<
+          ****************************************************
+          *                                                  *
+          *                   pspw DPLOT                     *
+          *                                                  *
+          *    [ Generates density and orbital grids  ]      *
+          *                                                  *
+          *     [ NorthWest Chemistry implementation ]       *
+          *                                                  *
+          *            version #1.00   08/22/01              *
+          *                                                  *
+          ****************************************************
+
+     >>>  JOB STARTED       AT Mon Dec 20 03:33:03 2021  <<<
+          ============ PSPW DPLOT input data =================
+
+ input psi filename:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/pspw_hf_LiH.movecs
+
+ number of processors used: 32
+ parallel mapping         :2d hilbert
+ parallel mapping         :  balanced
+
+ options:
+      boundary conditions   = periodic    (version3)
+
+ number of electrons: spin up=  1  spin down=  1 ( Fourier space)
+
+ ncell              =  0 0 0
+
+ position tolerance = 0.100000E-02
+
+           origin=<   0.000   0.000   0.000 >
+
+ supercell:
+      lattice: a1=<  28.346   0.000   0.000 >
+               a2=<   0.000  28.346   0.000 >
+               a3=<   0.000   0.000  28.346 >
+               b1=<   0.222   0.000   0.000 >
+               b2=<   0.000   0.222   0.000 >
+               b3=<   0.000   0.000   0.222 >
+      volume :    22775.6
+      density cutoff=100.000  fft=140x140x140(   544264 waves    17008 per task)
+      wavefnc cutoff= 50.000  fft=140x140x140(   192294 waves     6009 per task)
+
+
+    writing orbital                     1  to filename: homo-restricted.cube
+    writing total density to filename: density.cube
+
+ Writing Crystallographic Information File:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/LiH.cif
+   - cell not shifted (nwpw:cif_shift_cell .false.)
+
+ -----------------
+ cputime in seconds
+ total       :    40.884268045425415     
+
+     >>>  JOB COMPLETED     AT Mon Dec 20 03:33:44 2021  <<<
+
+ Task  times  cpu:       40.7s     wall:       40.9s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ >>>> PSPW Parallel Module - pspw_dplot <<<<
+          ****************************************************
+          *                                                  *
+          *                   pspw DPLOT                     *
+          *                                                  *
+          *    [ Generates density and orbital grids  ]      *
+          *                                                  *
+          *     [ NorthWest Chemistry implementation ]       *
+          *                                                  *
+          *            version #1.00   08/22/01              *
+          *                                                  *
+          ****************************************************
+
+     >>>  JOB STARTED       AT Mon Dec 20 03:33:44 2021  <<<
+          ============ PSPW DPLOT input data =================
+
+ input psi filename:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/pspw_hf_LiH.emovecs
+
+ number of processors used: 32
+ parallel mapping         :2d hilbert
+ parallel mapping         :  balanced
+
+ options:
+      boundary conditions   = periodic    (version3)
+
+ number of electrons: spin up=  8  spin down=  8 ( Fourier space)
+
+ ncell              =  0 0 0
+
+ position tolerance = 0.100000E-02
+
+           origin=<   0.000   0.000   0.000 >
+
+ supercell:
+      lattice: a1=<  28.346   0.000   0.000 >
+               a2=<   0.000  28.346   0.000 >
+               a3=<   0.000   0.000  28.346 >
+               b1=<   0.222   0.000   0.000 >
+               b2=<   0.000   0.222   0.000 >
+               b3=<   0.000   0.000   0.222 >
+      volume :    22775.6
+      density cutoff=100.000  fft=140x140x140(   544264 waves    17008 per task)
+      wavefnc cutoff= 50.000  fft=140x140x140(   192294 waves     6009 per task)
+
+
+    writing orbital                     1  to filename: lumo1-restricted.cube
+    writing orbital                     2  to filename: lumo2-restricted.cube
+    writing orbital                     3  to filename: lumo3-restricted.cube
+    writing orbital                     4  to filename: lumo4-restricted.cube
+    writing orbital                     5  to filename: lumo5-restricted.cube
+    writing orbital                     6  to filename: lumo6-restricted.cube
+    writing orbital                     7  to filename: lumo7-restricted.cube
+    writing orbital                     8  to filename: lumo8-restricted.cube
+
+ Writing Crystallographic Information File:/home/bylaska/Projects/Work/SNWC/H1Li1.4x3p-8covos-1.4/LiH.cif
+   - cell not shifted (nwpw:cif_shift_cell .false.)
+
+ -----------------
+ cputime in seconds
+ total       :    111.44426584243774     
+
+     >>>  JOB COMPLETED     AT Mon Dec 20 03:35:35 2021  <<<
+
+ Task  times  cpu:      110.5s     wall:      111.4s
+
+
+                                NWChem Input Module
+                                -------------------
+
+
+ Summary of allocated global arrays
+-----------------------------------
+  No active global arrays
+
+
+
+                         GA Statistics for process    0
+                         ------------------------------
+
+       create   destroy   get      put      acc     scatter   gather  read&inc
+calls:    0        0        0        0        0        0        0        0     
+number of processes/call 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+bytes total:             0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+bytes remote:            0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00 0.00e+00
+Max memory consumed for GA by this process: 0 bytes
+
+MA_summarize_allocated_blocks: starting scan ...
+MA_summarize_allocated_blocks: scan completed: 0 heap blocks, 0 stack blocks
+MA usage statistics:
+
+	allocation statistics:
+					      heap	     stack
+					      ----	     -----
+	current number of blocks	         0	         0
+	maximum number of blocks	       290	        34
+	current total bytes		         0	         0
+	maximum total bytes		  56481168	  16101944
+	maximum total K-bytes		     56482	     16102
+	maximum total M-bytes		        57	        17
+
+
+                                     CITATION
+                                     --------
+                Please cite the following reference when publishing
+                           results obtained with NWChem:
+
+          E. Apra, E. J. Bylaska, W. A. de Jong, N. Govind, K. Kowalski,
+       T. P. Straatsma, M. Valiev, H. J. J. van Dam, Y. Alexeev, J. Anchell,
+       V. Anisimov, F. W. Aquino, R. Atta-Fynn, J. Autschbach, N. P. Bauman,
+     J. C. Becca, D. E. Bernholdt, K. Bhaskaran-Nair, S. Bogatko, P. Borowski,
+         J. Boschen, J. Brabec, A. Bruner, E. Cauet, Y. Chen, G. N. Chuev,
+      C. J. Cramer, J. Daily, M. J. O. Deegan, T. H. Dunning Jr., M. Dupuis,
+   K. G. Dyall, G. I. Fann, S. A. Fischer, A. Fonari, H. Fruchtl, L. Gagliardi,
+      J. Garza, N. Gawande, S. Ghosh, K. Glaesemann, A. W. Gotz, J. Hammond,
+       V. Helms, E. D. Hermes, K. Hirao, S. Hirata, M. Jacquelin, L. Jensen,
+   B. G. Johnson, H. Jonsson, R. A. Kendall, M. Klemm, R. Kobayashi, V. Konkov,
+      S. Krishnamoorthy, M. Krishnan, Z. Lin, R. D. Lins, R. J. Littlefield,
+      A. J. Logsdail, K. Lopata, W. Ma, A. V. Marenich, J. Martin del Campo,
+   D. Mejia-Rodriguez, J. E. Moore, J. M. Mullin, T. Nakajima, D. R. Nascimento,
+    J. A. Nichols, P. J. Nichols, J. Nieplocha, A. Otero-de-la-Roza, B. Palmer,
+    A. Panyala, T. Pirojsirikul, B. Peng, R. Peverati, J. Pittner, L. Pollack,
+   R. M. Richard, P. Sadayappan, G. C. Schatz, W. A. Shelton, D. W. Silverstein,
+   D. M. A. Smith, T. A. Soares, D. Song, M. Swart, H. L. Taylor, G. S. Thomas,
+            V. Tipparaju, D. G. Truhlar, K. Tsemekhman, T. Van Voorhis,
+      A. Vazquez-Mayagoitia, P. Verma, O. Villa, A. Vishnu, K. D. Vogiatzis,
+        D. Wang, J. H. Weare, M. J. Williamson, T. L. Windus, K. Wolinski,
+        A. T. Wong, Q. Wu, C. Yang, Q. Yu, M. Zacharias, Z. Zhang, Y. Zhao,
+                                and R. J. Harrison
+                        "NWChem: Past, present, and future
+                         J. Chem. Phys. 152, 184102 (2020)
+                               doi:10.1063/5.0004997
+
+                                      AUTHORS
+                                      -------
+     E. Apra, E. J. Bylaska, N. Govind, K. Kowalski, M. Valiev, W. A. de Jong,
+      T. P. Straatsma, H. J. J. van Dam, D. Wang, T. L. Windus, N. P. Bauman,
+       A. Panyala, J. Hammond, J. Autschbach, K. Bhaskaran-Nair, J. Brabec,
+    K. Lopata, S. A. Fischer, S. Krishnamoorthy, M. Jacquelin, W. Ma, M. Klemm,
+       O. Villa, Y. Chen, V. Anisimov, F. Aquino, S. Hirata, M. T. Hackler,
+           Eric Hermes, L. Jensen, J. E. Moore, J. C. Becca, V. Konjkov,
+            D. Mejia-Rodriguez, T. Risthaus, M. Malagoli, A. Marenich,
+   A. Otero-de-la-Roza, J. Mullin, P. Nichols, R. Peverati, J. Pittner, Y. Zhao,
+        P.-D. Fan, A. Fonari, M. J. Williamson, R. J. Harrison, J. R. Rehr,
+      M. Dupuis, D. Silverstein, D. M. A. Smith, J. Nieplocha, V. Tipparaju,
+      M. Krishnan, B. E. Van Kuiken, A. Vazquez-Mayagoitia, M. Swart, Q. Wu,
+   T. Van Voorhis, A. A. Auer, M. Nooijen, L. D. Crosby, E. Brown, G. Cisneros,
+     G. I. Fann, H. Fruchtl, J. Garza, K. Hirao, R. A. Kendall, J. A. Nichols,
+       K. Tsemekhman, K. Wolinski, J. Anchell, D. E. Bernholdt, P. Borowski,
+       T. Clark, D. Clerc, H. Dachsel, M. J. O. Deegan, K. Dyall, D. Elwood,
+      E. Glendening, M. Gutowski, A. C. Hess, J. Jaffe, B. G. Johnson, J. Ju,
+        R. Kobayashi, R. Kutteh, Z. Lin, R. Littlefield, X. Long, B. Meng,
+      T. Nakajima, S. Niu, L. Pollack, M. Rosing, K. Glaesemann, G. Sandrone,
+      M. Stave, H. Taylor, G. Thomas, J. H. van Lenthe, A. T. Wong, Z. Zhang.
+
+ Total times  cpu:      627.3s     wall:      631.0s
+
+
+# MYMACHINENAME: Eric Bylaska - arrow11.emsl.pnl.gov :MYMACHINENAME
