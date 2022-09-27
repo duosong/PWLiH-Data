@@ -1,0 +1,105 @@
+
+"$schema": https://raw.githubusercontent.com/Microsoft/Quantum/master/Chemistry/Schema/broombridge-0.1.schema.json
+
+bibliography:
+- url: https://www.nwchem-sw.org
+format:
+  version: '0.1'
+generator:
+  source: nwchem
+  version: '6.8'
+integral_sets:
+- basis_set:
+    name: PW
+    type: gaussian
+  coulomb_repulsion:
+    units: hartree
+    value: 0.11205680661
+  energy_offset:
+    units: hartree
+    value: 0.0
+  fci_energy:
+    lower: -0.1
+    units: hartree
+    upper: 0.1
+    value: 0.0
+  geometry:
+    atoms:
+    - coords:
+      - 0.0
+      - 0.0
+      - -0.425
+      name: Li
+    - coords:
+      - 0.0
+      - 0.0
+      - 1.275
+      name: H
+    coordinate_system: cartesian
+    units: angstrom
+  hamiltonian:
+    one_electron_integrals:
+      format: sparse
+      units: hartree
+      values:
+      - - 1
+        - 1
+        - -0.5651071826
+      - - 2
+        - 1
+        - -0.1365310379
+      - - 2
+        - 2
+        - -0.1232577373
+    two_electron_integrals:
+      format: sparse
+      index_convention: mulliken
+      units: hartree
+      values:
+      - - 1
+        - 1
+        - 1
+        - 1
+        - 0.2732373621
+      - - 1
+        - 1
+        - 2
+        - 1
+        - 0.1365311824
+      - - 1
+        - 1
+        - 2
+        - 2
+        - 0.2330966849
+      - - 2
+        - 1
+        - 2
+        - 1
+        - 0.1147794032
+      - - 2
+        - 1
+        - 2
+        - 2
+        - 0.1343451057
+      - - 2
+        - 2
+        - 2
+        - 2
+        - 0.2226606739
+  metadata:
+    molecule_name: unknown
+  initial_state_suggestions:
+  - state:
+      energy: {units: hartree, value: -0.0}
+      label: '|G>'
+      superposition:
+      - [1.0, (1a)+, (1b)+, '|0>']
+  n_electrons: 2
+  n_orbitals: 2
+  scf_energy:
+    units: hartree
+    value: 0.0
+  scf_energy_offset:
+    units: hartree
+    value: 0.0
+
